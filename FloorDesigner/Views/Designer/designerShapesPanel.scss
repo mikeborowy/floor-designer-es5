@@ -1,0 +1,11 @@
+﻿#shapes-panel {
+    @include clearFix;
+    @include box-sizing(border-box);
+    width: 375px;
+    height: 97%;
+    position: absolute;
+    display: inline-block;
+    /* padding-top: 120px; */
+    padding-left: 1em;
+    top: 60px;
+}

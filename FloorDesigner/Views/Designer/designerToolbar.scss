@@ -1,0 +1,73 @@
+﻿
+/*Toolbar START*/
+.mdl-layout__drawer {
+    width: 500px;
+    left: -250px;
+}
+
+.mdl-layout__drawer.is-visible {
+    left: 0;
+}
+
+$textFieldWidth: 450px;
+
+.designer-toolbar-group {
+    padding-top: 25px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: none;
+    border-top: 1px solid rgba(0,0,0,.35);
+    display: block;
+    font-size: 16px;
+    font-family: "Helvetica","Arial",sans-serif;
+    margin: 0;
+    width: 100%;
+    background: 0 0;
+    text-align: left;
+    color: inherit;
+}
+
+.designer-toolbar-form-group {
+    .mdl-textfield {
+        width: $textFieldWidth;
+
+        .mdl-textfield__label {
+            color: rgb(68,138,255);
+        }
+    }
+
+    .mdl-textfield__input {
+        width: $textFieldWidth;
+    }
+
+    .mdl-textfield__label {
+        width: $textFieldWidth;
+    }
+}
+
+.mdl-long-btn {
+    width: $textFieldWidth;
+}
+
+.mdl-list-item-fixed {
+    min-height: 32px;
+    margin-left: 60px;
+}
+
+.mdl-list__item {
+    padding: 0;
+}
+
+.mdl-list {
+    padding: 0;
+}
+
+.mdl-button-color-blue {
+    color: rgb(68,138,255);
+}
+
+.mdl-toolbar-button {
+    text-transform: none;
+}
+/*Toolbar END*/

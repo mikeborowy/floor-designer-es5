@@ -1,0 +1,11 @@
+﻿
+/*Mixins*/
+@import "mixins.scss";
+
+@import '../Views/Shared/_Layout.scss';
+//Designer START
+@import '../Views/Designer/index.scss';
+@import '../Views/Designer/designerToolbar.scss';
+@import '../Views/Designer/designerShapesPanel.scss';
+@import '../Views/Designer/designerStage.scss';
+//Desinger END

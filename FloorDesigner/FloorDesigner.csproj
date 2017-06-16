@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -141,11 +147,66 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Context\DesignerDBContext.cs" />
+    <Compile Include="Context\DesignerDBContextSeed.cs" />
+    <Compile Include="Controllers\DesignerController.cs" />
+    <Compile Include="Controllers\FloorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Floor.cs" />
+    <Compile Include="Models\FloorLayout.cs" />
+    <Compile Include="Models\FloorItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\material.css" />
+    <Content Include="Content\material.fonts.css" />
+    <Content Include="Content\material.min.css" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Designer\designer.js" />
+    <Content Include="Scripts\material.js" />
+    <Content Include="Scripts\gsap\easing\EasePack.js" />
+    <Content Include="Scripts\gsap\jquery.gsap.js" />
+    <Content Include="Scripts\gsap\plugins\AttrPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\BezierPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\ColorPropsPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\CSSPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\CSSRulePlugin.js" />
+    <Content Include="Scripts\gsap\plugins\DirectionalRotationPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\EaselPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\EndArrayPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\KineticPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\Physics2DPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\PhysicsPropsPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\RaphaelPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\RoundPropsPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\ScrambleTextPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\ScrollToPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\TEMPLATE_Plugin.js" />
+    <Content Include="Scripts\gsap\plugins\TextPlugin.js" />
+    <Content Include="Scripts\gsap\plugins\ThrowPropsPlugin.js" />
+    <Content Include="Scripts\gsap\TimelineLite.js" />
+    <Content Include="Scripts\gsap\TimelineMax.js" />
+    <Content Include="Scripts\gsap\TweenLite.js" />
+    <Content Include="Scripts\gsap\TweenMax.js" />
+    <Content Include="Scripts\gsap\utils\Draggable.js" />
+    <Content Include="Scripts\gsap\utils\SplitText.js" />
+    <Content Include="Views\Designer\designerStage.cshtml" />
+    <Content Include="Views\Designer\designerShapesPanel.cshtml" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="fonts\material-font.woff2" />
+    <Content Include="Views\Designer\designerShapesPanel.scss" />
+    <Content Include="Views\Designer\designerStage.scss" />
+    <Content Include="Content\mixins.scss" />
+    <None Include="Views\Designer\designerToolbar.cshtml" />
+    <Content Include="Views\Designer\designerToolbar.scss" />
+    <Content Include="Views\Designer\index.scss" />
+    <Content Include="Views\Shared\_Layout.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -159,6 +220,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Site.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -184,10 +246,18 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\scss\index.scss" />
+    <Content Include="Views\Floors\Create.cshtml" />
+    <Content Include="Views\Floors\Delete.cshtml" />
+    <Content Include="Views\Floors\Details.cshtml" />
+    <Content Include="Views\Floors\Edit.cshtml" />
+    <Content Include="Views\Floors\Index.cshtml" />
+    <Content Include="Views\Designer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Images\blueprints\" />
+    <Folder Include="Images\shapes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

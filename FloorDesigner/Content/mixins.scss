@@ -1,0 +1,123 @@
+
+//Calculate snapshot thumb size 
+@function calc-percent($target, $container) {
+  @return ($target / $container) * 100%;
+}
+
+//Filters:
+
+// grayscale      ex: filter: grayscale(100%);
+// sepia          ex: filter: sepia(100%);
+// saturate       ex: filter: saturate(0%);
+// hue-rotate     ex: filter: hue-rotate(45deg);
+// invert         ex: filter: invert(100%);
+// brightness     ex: filter: brightness(15%);
+// contrast       ex: filter: contrast(200%);
+// blur           ex: filter: blur(2px);
+//
+//@include filter(invert, 5px);
+
+@mixin filter($filter-type,$filter-amount) { 
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+ 
+
+//background image
+//@include bgndImage('assets/images/dataexplorer/dropdown_arrow.png', 1.5em 1.5em, no-repeat, right, to right, 0, 65%);
+@mixin bgndImage($image, $bgndSize: cover, $bgndRepeat: none, $bgndPos: center center, $gradDirection: to bottom, $opacityStart: 0, $opacityEnd: 0) {
+	background: linear-gradient( $gradDirection, rgba(0,0,0, $opacityStart), rgba(0,0,0, $opacityEnd)), url($image); 
+	background-repeat: $bgndRepeat;
+	background-position: $bgndPos;	
+
+	  -webkit-background-size: $bgndSize;
+	  -moz-background-size: $bgndSize;
+	  -o-background-size: $bgndSize;
+	  background-size: $bgndSize;
+}
+
+//@include backBgndImage('../images/hotel/events_conference.jpg', 10px 10px, no-repeat, center-top);
+@mixin backBgndImage($image, $bgndSize, $repeat:no-repeat, $position:center top){
+    background-image: url($image);
+    background-repeat: $repeat;
+	background-position: $position;	
+ 
+	-webkit-background-size: $bgndSize;
+	-moz-background-size: $bgndSize;
+	-o-background-size: $bgndSize;
+	background-size: $bgndSize;
+}
+
+//trick to clearing floats
+@mixin clearFix {
+	//& --> use the parent of element I'm calling;
+	&:before,
+	&:after {
+		content: '';
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin box-sizing($box-model) {
+  -webkit-box-sizing: $box-model; // Safari <= 5
+     -moz-box-sizing: $box-model; // Firefox <= 19
+          box-sizing: $box-model;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box; /* stops bg color from leaking outside the border: */
+}
+
+// Single side border-radius
+
+@mixin border-top-radius($radius) {
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    border-top-left-radius: $radius;
+    background-clip: padding-box;
+}
+
+@mixin border-right-radius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+    background-clip: padding-box;
+}
+
+@mixin border-bottom-radius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    background-clip: padding-box;
+}
+
+@mixin border-left-radius($radius) {
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    border-top-left-radius: $radius;
+    background-clip: padding-box;
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
