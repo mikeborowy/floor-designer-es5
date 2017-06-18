@@ -165,6 +165,10 @@
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
+    <Content Include="Images\shapes\room_lshape_3x3.png" />
+    <Content Include="Images\shapes\room_rect_2x2.png" />
+    <Content Include="Images\shapes\room_rect_3x2.png" />
+    <Content Include="Images\shapes\room_squa_3x3.png" />
     <Content Include="Scripts\Designer\designer.js" />
     <Content Include="Scripts\material.js" />
     <Content Include="Scripts\gsap\easing\EasePack.js" />
@@ -257,7 +261,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\blueprints\" />
-    <Folder Include="Images\shapes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

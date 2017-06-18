@@ -41,8 +41,6 @@
 
         function OnZoomWheel(evt) {
 
-            console.log(evt)
-
             if (zoomMouse) {
 
                 var delta;
@@ -211,8 +209,6 @@
                     $('<div>')
                         .attr('id', 'room-blocker').attr('class', 'room-blocker-inv').appendTo(room);
 
-                console.log("dd")
-
                 Draggable.get("#room-container").enable();
                 //Draggable.get("#sp-seating-container").applyBounds({ top: 0, left: 0, width: roomWidthOrg * roomScaleNum, height: roomHeightOrg * roomScaleNum });
             }
@@ -276,8 +272,6 @@
             var posX = (parentWidth / 2 - $("#room").width() / 2)
 
             TweenLite.to($("#room"), 0, { x: posX })
-
-            console.log(posX)
 
             //if ($("#room").width() <= $("#room-container").width()) {
             //$("#room").offset({ right: posX });
