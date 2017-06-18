@@ -47,6 +47,7 @@
 
                 var delta;
                 var room = $('#room');
+                var roomContainer = $('#room-container');
 
                 if (evt.originalEvent.wheelDelta !== undefined)
                     delta = evt.originalEvent.wheelDelta;
@@ -68,29 +69,69 @@
                 }
 
                 //TweenLite.killTweensOf(room);
-                //TweenLite.killTweensOf($("#sp-seating-container"));
-
+                //TweenLite.killTweensOf(roomContainer);
 
                 TweenMax.to(room, 0.3, {
-                    transformOrigin: "50% 50%",
                     scaleX: roomScaleNum,
                     scaleY: roomScaleNum,
-                    //x: 0,
-                    //y: 0,
-                    onComplete: function () {
-
-                        //UpdateRoomSize();
-                        //scrollTo([
-                        //    { 'y': $('#room-top').offset().top },
-                        //    { 'speed': 0.1 }
-                        //])
-                    }
                 });
 
+                var posX = (roomContainer.width() / 2 - room.width() / 2)
+                var roomWidthAfterScale = room.width() * roomScaleNum;
 
+                var posY = (roomContainer.height() / 2 - room.height() / 2)
+                var roomHeightAfterScale = room.height() * roomScaleNum;
 
-                //zoomSlider.slider({ value: ((roomScaleNum - 1) * 10) });
+                //First for horizontal scale scroll issue
+                //check if scaled room width is bigger than room conatiner
+                //if true align to left
+                if (roomWidthAfterScale >= roomContainer.width()) {
+                    TweenMax.set(room, {
+                        transformOrigin: "0 50%",
+                        x: 0,
+                        y: posY
+                    });
 
+                    //then check if scaled room height is bigger than room conatiner 
+                    //and align to top
+                    if (roomHeightAfterScale >= roomContainer.height()) {
+                        TweenMax.set(room, {
+                            transformOrigin: "0% 0%",
+                            x: 0,
+                            y: 0
+                        });
+                    }
+
+                }
+                //for vertical scale scroll issue
+                //check if scaled room height is bigger than room conatiner 
+                //if true align to top
+                else if(roomHeightAfterScale >= roomContainer.height()) {
+                    TweenMax.set(room, {
+                        transformOrigin: "50% 0%",
+                        x: posX,
+                        y: 0
+                    });
+
+                    //then check if scaled room width is bigger than room conatiner 
+                    //and align to left
+                    if (roomWidthAfterScale >= roomContainer.width()) {
+                        TweenMax.set(room, {
+                            transformOrigin: "0 0",
+                            x: 0,
+                            y: 0
+                        });
+                    }
+                   
+                }
+                //otherwise appply regular scale with centerd point
+                else {
+                    TweenMax.set(room, {
+                        transformOrigin: "50% 50%",
+                        x: posX,
+                        y: posY
+                    });
+                }
             }
         }
 
