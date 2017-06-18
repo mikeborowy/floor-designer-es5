@@ -13,5 +13,12 @@
     @include box-shadow(2px, 0px, 2px, 0px, rgba(50, 50, 50, 0.3));
 
     #shapes-box {
+
+        img {
+            width: 70px;
+            right: 10px;
+            position: absolute;
+            top: 10px;
+        }
     }
 }

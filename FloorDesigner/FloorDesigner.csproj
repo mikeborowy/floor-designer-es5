@@ -166,7 +166,7 @@
       <DependentUpon>Site.css</DependentUpon>
     </Content>
     <Content Include="Images\shapes\room_lshape_3x3.png" />
-    <Content Include="Images\shapes\room_rect_2x2.png" />
+    <Content Include="Images\shapes\room_squa_2x2.png" />
     <Content Include="Images\shapes\room_rect_3x2.png" />
     <Content Include="Images\shapes\room_squa_3x3.png" />
     <Content Include="Scripts\Designer\designer.js" />
