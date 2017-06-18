@@ -27,35 +27,35 @@ namespace FloorDesigner
                 "~/Scripts/material.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/gsap").Include(
-          "~/Scripts/_gsap/TweenMax.js",
-          "~/Scripts/_gsap/TweenLite.js",
-          "~/Scripts/_gsap/TimelineMax.js",
-           "~/Scripts/_gsap/easing/EasePack.js",
-           "~/Scripts/_gsap/jquery.gsap.js",
-           "~/Scripts/_gsap/utils/Draggable.js",
-           "~/Scripts/_gsap/plugins/AttrPlugin.js",
-           "~/Scripts/_gsap/plugins/BezierPlugin.js",
-           "~/Scripts/_gsap/plugins/ColorPropsPlugin.js",
-           "~/Scripts/_gsap/plugins/CSSPlugin.js",
-           "~/Scripts/_gsap/plugins/CSSRulePlugin.js",
-           "~/Scripts/_gsap/plugins/DirectionalRotationPlugin.js",
-           "~/Scripts/_gsap/plugins/EaselPlugin.js",
-           "~/Scripts/_gsap/plugins/EndArrayPlugin.js",
-           "~/Scripts/_gsap/plugins/KineticPlugin.js",
-           "~/Scripts/_gsap/plugins/Physics2DPlugin.js",
-           "~/Scripts/_gsap/plugins/PhysicsPropsPlugin.js",
-           "~/Scripts/_gsap/plugins/RaphaelPlugin.js",
-           "~/Scripts/_gsap/plugins/RoundPropsPlugin.js",
-           "~/Scripts/_gsap/plugins/ScrambleTextPlugin.js",
-           "~/Scripts/_gsap/plugins/ScrollToPlugin.js",
-           "~/Scripts/_gsap/plugins/TextPlugin.js",
-           "~/Scripts/_gsap/plugins/ThrowPropsPlugin.js",
-           "~/Scripts/_gsap/plugins/TEMPLATE_Plugin.js"
+          "~/Scripts/gsap/TweenMax.js",
+          "~/Scripts/gsap/TweenLite.js",
+          "~/Scripts/gsap/TimelineMax.js",
+           "~/Scripts/gsap/easing/EasePack.js",
+           "~/Scripts/gsap/jquery.gsap.js",
+           "~/Scripts/gsap/utils/Draggable.js",
+           "~/Scripts/gsap/plugins/AttrPlugin.js",
+           "~/Scripts/gsap/plugins/BezierPlugin.js",
+           "~/Scripts/gsap/plugins/ColorPropsPlugin.js",
+           "~/Scripts/gsap/plugins/CSSPlugin.js",
+           "~/Scripts/gsap/plugins/CSSRulePlugin.js",
+           "~/Scripts/gsap/plugins/DirectionalRotationPlugin.js",
+           "~/Scripts/gsap/plugins/EaselPlugin.js",
+           "~/Scripts/gsap/plugins/EndArrayPlugin.js",
+           "~/Scripts/gsap/plugins/KineticPlugin.js",
+           "~/Scripts/gsap/plugins/Physics2DPlugin.js",
+           "~/Scripts/gsap/plugins/PhysicsPropsPlugin.js",
+           "~/Scripts/gsap/plugins/RaphaelPlugin.js",
+           "~/Scripts/gsap/plugins/RoundPropsPlugin.js",
+           "~/Scripts/gsap/plugins/ScrambleTextPlugin.js",
+           "~/Scripts/gsap/plugins/ScrollToPlugin.js",
+           "~/Scripts/gsap/plugins/TextPlugin.js",
+           "~/Scripts/gsap/plugins/ThrowPropsPlugin.js",
+           "~/Scripts/gsap/plugins/TEMPLATE_Plugin.js"
           ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/designer").Include(
-         "~/Scripts/designer.js"));
+         "~/Scripts/Designer/designer.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

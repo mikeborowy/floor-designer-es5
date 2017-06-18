@@ -116,6 +116,13 @@
     filter: alpha(opacity=$opacity-ie); //IE8
 }
 
+//2px 0px 2px 0px rgba(50, 50, 50, 0.29)
+@mixin box-shadow($ang1, $ang2, $distance, $blur, $color) {
+    -webkit-box-shadow: $ang1 $ang2 $distance $blur $color;
+    -moz-box-shadow: $ang1 $ang2 $distance $blur $color;
+    box-shadow: $ang1 $ang2 $distance $blur $color;
+}
+
 @mixin center-block {
     display: block;
     margin-left: auto;

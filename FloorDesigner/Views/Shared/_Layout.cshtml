@@ -6,14 +6,13 @@
     <title>@ViewBag.Title - Floor Designer</title>
     <link href="~/Content/material.fonts.css" rel="stylesheet" />
     <link href="~/Content/material.min.css" rel="stylesheet" />
-    <link href="/Content/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link href="/Content/print.css" media="print" rel="stylesheet" type="text/css" />
-    <!--[if IE]>
-        <link href="/Content/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <![endif]-->
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/mdl")
+    @Scripts.Render("~/bundles/gsap")
 </head>
 <body>
  
@@ -21,10 +20,6 @@
         @RenderBody()
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/mdl")
-    @Scripts.Render("~/bundles/gsap")
-    @RenderSection("scripts", required: false)
+  
 </body>
 </html>

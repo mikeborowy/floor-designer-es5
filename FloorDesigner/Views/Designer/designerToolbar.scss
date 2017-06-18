@@ -1,5 +1,10 @@
 ﻿
 /*Toolbar START*/
+
+#designer-toolbar 
+{
+    height: 64px;
+}
 .mdl-layout__drawer {
     width: 500px;
     left: -250px;
@@ -69,5 +74,11 @@ $textFieldWidth: 450px;
 
 .mdl-toolbar-button {
     text-transform: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .mdl-layout__header {
+        min-height: 64px;
+    }
 }
 /*Toolbar END*/
