@@ -10,44 +10,71 @@
         });
 
         RefreshSeatingPlanScreen();
-
+        shapeListBtnInit();
         /**
         * SHAPES PANEL START
         */
+        function shapeListBtnInit() {
 
+            var shapeListBtnConfig = {
 
-        $.each($(".shape-list-btn"), function (i, shapeListBtn) {
+                normal: {
+                    smlBarWidth: 5,
+                    color: 'rgb(68,138,255)',
+                    primaryContentX: 0,
+                    animationTime: 0.2
+                },
+                over: {
+                    smlBarWidth: 15,
+                    color: 'rgb(255,235,59)',
+                    primaryContentX: 10,
+                    primaryContentAnimationDelay: 0.1,
+                    animationTime: 0.2
+                }
+            }
 
-            $(shapeListBtn).mouseover(function (evt) {
-                OnMouseOver($(this))
+            $.each($(".shape-list-btn"), function (i, shapeListBtn) {
+                console.log("tata")
+
+                $(shapeListBtn).mouseover(function (evt) {
+                    OnMouseOver($(this), shapeListBtnConfig.over)
+                });
+
+                $(shapeListBtn).mouseout(function (evt) {
+                    OnMouseOut($(this), shapeListBtnConfig.normal)
+                });
             });
 
-            $(shapeListBtn).mouseout(function (evt) {
-                OnMouseOut($(this))
-            });
-        });
+            function OnMouseOver(btn, cfg) {
 
-        function OnMouseOver(btn) {
+                //console.log(btn.find(".shape-list-title").html());
+                var bar = btn.find('.shape-list-sml-bar');
+                TweenLite.to(bar, cfg.animationTime, {
+                    width: cfg.smlBarWidth,
+                    backgroundColor: cfg.color
+                });
 
-            //console.log(btn.find(".shape-list-title").html());
-            var bar = btn.find('.shape-list-sml-bar');
-            TweenLite.to(bar, 0.2, { width: 15, backgroundColor: 'rgb(255,235,59)' });
+                var primaryContent = btn.find('.mdl-list__item-primary-content')
+                TweenLite.to(primaryContent, cfg.animationTime + cfg.primaryContentAnimationDelay, {
+                    x: cfg.primaryContentX
+                });
+            }
 
-            var primaryContent = btn.find('.mdl-list__item-primary-content')
-            TweenLite.to(primaryContent, 0.3, { x:10 });
+            function OnMouseOut(btn, cfg) {
 
+                var bar = btn.find('.shape-list-sml-bar');
+                TweenLite.to(bar, cfg.animationTime, {
+                    width: cfg.smlBarWidth,
+                    backgroundColor: cfg.color
+                });
 
+                var primaryContent = btn.find('.mdl-list__item-primary-content')
+                TweenLite.to(primaryContent, cfg.animationTime, {
+                    x: cfg.primaryContentX
+                });
+            }
         }
 
-        function OnMouseOut(btn) {
-
-            var bar = btn.find('.shape-list-sml-bar');
-            TweenLite.to(bar, 0.2, { width: 5, backgroundColor: 'rgb(68,138,255)' });
-
-            var primaryContent = btn.find('.mdl-list__item-primary-content')
-            TweenLite.to(primaryContent, 0.2, { x:0 });
-
-        }
         /**
         * SHAPES PANEL END
         */
@@ -84,8 +111,6 @@
             if (zoomMouse) {
 
                 var delta;
-                var room = $('#room');
-                var roomContainer = $('#room-container');
 
                 if (evt.originalEvent.wheelDelta !== undefined)
                     delta = evt.originalEvent.wheelDelta;
@@ -99,123 +124,99 @@
                     roomScaleNum -= 0.1;
                 }
 
-                if (roomScaleNum < roomScaleNumMin) {
-                    roomScaleNum = 0.2;
-                }
-                if (roomScaleNum > roomScaleNumMax) {
-                    roomScaleNum = 2;
-                }
+                ZoomStage();
 
-                //TweenLite.killTweensOf(room);
-                //TweenLite.killTweensOf(roomContainer);
+                document.querySelector('#zoom-slider').MaterialSlider.change((roomScaleNum - 1) * 10);
+                //$("#zoom-slider").get(0).MaterialTextfield.change((roomScaleNum - 1) * 10);
+            }
+        };
 
-                TweenMax.to(room, 0.3, {
-                    scaleX: roomScaleNum,
-                    scaleY: roomScaleNum,
+        $('#zoom-slider').on('input', function () {
+            OnSliderZoom(this.value);
+        });
+
+        function OnSliderZoom(val) {
+
+            roomScaleNum = (val * 0.1) + 1;
+            ZoomStage();
+        }
+
+        function ZoomStage() {
+
+            var room = $('#room');
+            var roomContainer = $('#room-container');
+
+            //TweenLite.killTweensOf(room);
+            //TweenLite.killTweensOf(roomContainer);
+
+            if (roomScaleNum < roomScaleNumMin) {
+                roomScaleNum = 0.2;
+            }
+            if (roomScaleNum > roomScaleNumMax) {
+                roomScaleNum = 2;
+            }
+
+            TweenMax.to(room, 0.3, {
+                scaleX: roomScaleNum,
+                scaleY: roomScaleNum,
+            });
+
+            var posX = (roomContainer.width() / 2 - room.width() / 2)
+            var roomWidthAfterScale = room.width() * roomScaleNum;
+
+            var posY = (roomContainer.height() / 2 - room.height() / 2)
+            var roomHeightAfterScale = room.height() * roomScaleNum;
+
+            //First for horizontal scale scroll issue
+            //check if scaled room width is bigger than room conatiner
+            //if true align to left
+            if (roomWidthAfterScale >= roomContainer.width()) {
+                TweenMax.set(room, {
+                    transformOrigin: "0 50%",
+                    x: 0,
+                    y: posY
                 });
 
-                var posX = (roomContainer.width() / 2 - room.width() / 2)
-                var roomWidthAfterScale = room.width() * roomScaleNum;
-
-                var posY = (roomContainer.height() / 2 - room.height() / 2)
-                var roomHeightAfterScale = room.height() * roomScaleNum;
-
-                //First for horizontal scale scroll issue
-                //check if scaled room width is bigger than room conatiner
-                //if true align to left
-                if (roomWidthAfterScale >= roomContainer.width()) {
+                //then check if scaled room height is bigger than room conatiner 
+                //and align to top
+                if (roomHeightAfterScale >= roomContainer.height()) {
                     TweenMax.set(room, {
-                        transformOrigin: "0 50%",
+                        transformOrigin: "0% 0%",
                         x: 0,
-                        y: posY
-                    });
-
-                    //then check if scaled room height is bigger than room conatiner 
-                    //and align to top
-                    if (roomHeightAfterScale >= roomContainer.height()) {
-                        TweenMax.set(room, {
-                            transformOrigin: "0% 0%",
-                            x: 0,
-                            y: 0
-                        });
-                    }
-
-                }
-                //for vertical scale scroll issue
-                //check if scaled room height is bigger than room conatiner 
-                //if true align to top
-                else if(roomHeightAfterScale >= roomContainer.height()) {
-                    TweenMax.set(room, {
-                        transformOrigin: "50% 0%",
-                        x: posX,
                         y: 0
                     });
-
-                    //then check if scaled room width is bigger than room conatiner 
-                    //and align to left
-                    if (roomWidthAfterScale >= roomContainer.width()) {
-                        TweenMax.set(room, {
-                            transformOrigin: "0 0",
-                            x: 0,
-                            y: 0
-                        });
-                    }
-                   
                 }
-                //otherwise appply regular scale with centerd point
-                else {
+
+            }
+            //for vertical scale scroll issue
+            //check if scaled room height is bigger than room conatiner 
+            //if true align to top
+            else if (roomHeightAfterScale >= roomContainer.height()) {
+                TweenMax.set(room, {
+                    transformOrigin: "50% 0%",
+                    x: posX,
+                    y: 0
+                });
+
+                //then check if scaled room width is bigger than room conatiner 
+                //and align to left
+                if (roomWidthAfterScale >= roomContainer.width()) {
                     TweenMax.set(room, {
-                        transformOrigin: "50% 50%",
-                        x: posX,
-                        y: posY
+                        transformOrigin: "0 0",
+                        x: 0,
+                        y: 0
                     });
                 }
-            }
-        }
-
-        function scrollTo(options) {
-
-            TweenLite.killTweensOf(('#room-container'));
-
-            if (options) {
-                var _speed = findValueByKey(options, "speed");
-                var _x = findValueByKey(options, "x");
-                var _y = findValueByKey(options, "y");
-
-                if (!_speed)
-                    _speed = 1;
-
-                if (_y && !_x) {
-                    TweenLite.to($('#room-container'), _speed,
-                        {
-                            scrollTo: { y: _y }, onComplete: updateScrollPosition
-                        });
-                }
-
-                if (!_y && _x) {
-                    TweenLite.to($('#room-container'), _speed,
-                        {
-                            scrollTo: { x: _x }, onComplete: updateScrollPosition
-                        });
-                }
-
-                if (_y && _x) {
-                    TweenLite.to($('#room-container'), _speed,
-                        {
-                            scrollTo: { y: _y, x: _x }, onComplete: updateScrollPosition
-                        });
-                }
 
             }
+            //otherwise appply regular scale with centerd point
             else {
-                alert('add paramaters: <br> {"y": num}')
+                TweenMax.set(room, {
+                    transformOrigin: "50% 50%",
+                    x: posX,
+                    y: posY
+                });
             }
-        }
-
-        function updateScrollPosition(evt) {
-
-            //console.log($('#sp-seating-container').scrollTop());
-            //console.log($('#sp-seating-container').scrollLeft());
         }
 
         /**

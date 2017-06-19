@@ -1,10 +1,12 @@
 ﻿
 /*Toolbar START*/
+$textFieldWidth: 450px;
+$color: rgb(0,0,0); 
 
-#designer-toolbar 
-{
+#designer-toolbar {
     height: 64px;
 }
+
 .mdl-layout__drawer {
     width: 500px;
     left: -250px;
@@ -14,7 +16,51 @@
     left: 0;
 }
 
-$textFieldWidth: 450px;
+.designer-toolbar-svg-icon {
+    display: inline-block;
+    width: 20px;
+}
+
+.mdl-slider__background-lower {
+    background: $color !important;
+}
+
+.mdl-slider__background-upper {
+    /*background: #000000 !important;*/
+}
+
+.mdl-slider {
+
+    &:active::-webkit-slider-thumb,
+    &::-webkit-slider-thumb {
+        background: $color !important;
+    }
+
+    &:active::-moz-range-thumb,
+    &::-moz-range-thumb {
+        background: $color !important;
+    }
+
+    &:active::-ms-thumb,
+    &::-ms-thumb {
+        background: $color !important;
+    }
+
+    &:active::-webkit-slider-thumb,
+    &::-webkit-slider-thumb {
+        background: $color !important;
+    }
+
+    &:active::-moz-range-thumb,
+    &::-moz-range-thumb {
+        background: $color !important;
+    }
+
+    &:active::-ms-thumb,
+    &::-ms-thumb {
+        background: $color !important;
+    }
+}
 
 .designer-toolbar-group {
     padding-top: 25px;
@@ -69,7 +115,7 @@ $textFieldWidth: 450px;
 }
 
 .mdl-button-color-blue {
-    color: rgb(68,138,255);
+    color: $color;
 }
 
 .mdl-toolbar-button {

@@ -62,6 +62,34 @@ body {
 .mdl-layout__drawer.is-visible {
   left: 0; }
 
+.designer-toolbar-svg-icon {
+  display: inline-block;
+  width: 20px; }
+
+.mdl-slider__background-lower {
+  background: black !important; }
+
+.mdl-slider__background-upper {
+  /*background: #000000 !important;*/ }
+
+.mdl-slider:active::-webkit-slider-thumb, .mdl-slider::-webkit-slider-thumb {
+  background: black !important; }
+
+.mdl-slider:active::-moz-range-thumb, .mdl-slider::-moz-range-thumb {
+  background: black !important; }
+
+.mdl-slider:active::-ms-thumb, .mdl-slider::-ms-thumb {
+  background: black !important; }
+
+.mdl-slider:active::-webkit-slider-thumb, .mdl-slider::-webkit-slider-thumb {
+  background: black !important; }
+
+.mdl-slider:active::-moz-range-thumb, .mdl-slider::-moz-range-thumb {
+  background: black !important; }
+
+.mdl-slider:active::-ms-thumb, .mdl-slider::-ms-thumb {
+  background: black !important; }
+
 .designer-toolbar-group {
   padding-top: 25px;
   padding-bottom: 15px;
@@ -103,7 +131,7 @@ body {
   padding: 0; }
 
 .mdl-button-color-blue {
-  color: #448aff; }
+  color: black; }
 
 .mdl-toolbar-button {
   text-transform: none; }
