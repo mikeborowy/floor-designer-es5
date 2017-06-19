@@ -133,8 +133,42 @@ body {
 .mdl-button-color-blue {
   color: black; }
 
-.mdl-toolbar-button {
-  text-transform: none; }
+.designer-toolbar-button {
+  text-transform: none;
+  background-color: #ffeb3b;
+  box-shadow: none;
+  text-transform: none;
+  min-width: 26px;
+  min-height: 16px; }
+
+.mdl-slider__container {
+  position: relative;
+  top: 6px;
+  float: left;
+  left: -10px; }
+
+#zoom-floor-panel #zoom-out-floor-btn {
+  display: inline-block;
+  /* position: absolute; */
+  /* top: 18px; */
+  cursor: pointer;
+  /* right: -20px; */
+  /* padding: 0px !important; */
+  /* border: none; */
+  /* background: none; */
+  /* outline: none; */
+  float: left;
+  /* left: -15px; */ }
+
+#zoom-floor-panel #zoom-in-floor-btn {
+  right: 0;
+  position: relative;
+  /* display: inline-block; */
+  right: 20px;
+  /* padding: 0px !important; */
+  /* position: relative; */
+  float: right;
+  cursor: pointer; }
 
 @media screen and (max-width: 1024px) {
   .mdl-layout__header {
