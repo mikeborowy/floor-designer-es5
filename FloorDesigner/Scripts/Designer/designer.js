@@ -27,7 +27,7 @@
                 over: {
                     smlBarWidth: 15,
                     color: 'rgb(255,235,59)',
-                    primaryContentX: 10,
+                    primaryContentX: 20,
                     primaryContentAnimationDelay: 0.1,
                     animationTime: 0.2
                 }
@@ -97,18 +97,15 @@
         */
 
         /**
-        * ZOOM MOUSE WHEEL START
+        * ZOOM START
         */
         var zoomMouse = false;
         var roomScaleNum = 1;
         var roomScaleNumMin = 0.2;
         var roomScaleNumMax = 2;
 
-        $('#room-container').bind('wheel mousewheel', OnZoomWheel);
-
-        function OnZoomWheel(evt) {
-
-            if (zoomMouse) {
+        /*MOUSE WHEEL*/
+        $('#room-container').bind('wheel mousewheel', function(evt) {
 
                 var delta;
 
@@ -128,19 +125,42 @@
 
                 document.querySelector('#zoom-slider').MaterialSlider.change((roomScaleNum - 1) * 10);
                 //$("#zoom-slider").get(0).MaterialTextfield.change((roomScaleNum - 1) * 10);
-            }
-        };
-
-        $('#zoom-slider').on('input', function () {
-            OnSliderZoom(this.value);
         });
 
-        function OnSliderZoom(val) {
+        /*SLIDER*/
+        $('#zoom-slider').on('input', function () {
 
-            roomScaleNum = (val * 0.1) + 1;
+            roomScaleNum = (this.value * 0.1) + 1;
             ZoomStage();
-        }
+        });
 
+        /*ZOOM IN BTN*/
+        $('#zoom-in-floor-btn').click(function () {
+
+            roomScaleNum += 0.1;
+
+            ZoomStage();
+            document.querySelector('#zoom-slider').MaterialSlider.change((roomScaleNum - 1) * 10);
+        }
+        )
+        /*ZOOM OUT BTN*/
+        $('#zoom-out-floor-btn').click(function () {
+
+            roomScaleNum -= 0.1;
+
+            ZoomStage();
+            document.querySelector('#zoom-slider').MaterialSlider.change((roomScaleNum - 1) * 10);
+        })
+        /*ZOOM RESET BTN*/
+        $('#zoom-reset-floor-btn').click(function () {
+
+            roomScaleNum = 1;
+
+            ZoomStage();
+            document.querySelector('#zoom-slider').MaterialSlider.change((roomScaleNum - 1) * 10);
+        });
+
+        /*ZOOM ZOOM*/
         function ZoomStage() {
 
             var room = $('#room');
@@ -220,7 +240,7 @@
         }
 
         /**
-         * ZOOM MOUSE WHEEL END
+         * ZOOM END
          */
 
         /**
