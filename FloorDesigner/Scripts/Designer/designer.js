@@ -11,6 +11,46 @@
 
         RefreshSeatingPlanScreen();
 
+        /**
+        * SHAPES PANEL START
+        */
+
+
+        $.each($(".shape-list-btn"), function (i, shapeListBtn) {
+
+            $(shapeListBtn).mouseover(function (evt) {
+                OnMouseOver($(this))
+            });
+
+            $(shapeListBtn).mouseout(function (evt) {
+                OnMouseOut($(this))
+            });
+        });
+
+        function OnMouseOver(btn) {
+
+            //console.log(btn.find(".shape-list-title").html());
+            var bar = btn.find('.shape-list-sml-bar');
+            TweenLite.to(bar, 0.2, { width: 15, backgroundColor: 'rgb(255,235,59)' });
+
+            var primaryContent = btn.find('.mdl-list__item-primary-content')
+            TweenLite.to(primaryContent, 0.3, { x:10 });
+
+
+        }
+
+        function OnMouseOut(btn) {
+
+            var bar = btn.find('.shape-list-sml-bar');
+            TweenLite.to(bar, 0.2, { width: 5, backgroundColor: 'rgb(68,138,255)' });
+
+            var primaryContent = btn.find('.mdl-list__item-primary-content')
+            TweenLite.to(primaryContent, 0.2, { x:0 });
+
+        }
+        /**
+        * SHAPES PANEL END
+        */
 
         /**
          * CREATE DRAGGABLE STAGE START

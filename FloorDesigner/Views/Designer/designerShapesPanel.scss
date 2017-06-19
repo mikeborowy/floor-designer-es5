@@ -6,7 +6,7 @@
     /*height: 100%;*/
     z-index: 3;
     overflow-y: auto;
-    padding-left: 1em;
+    /*padding-left: 1em;*/
     /*margin-top: 64px;*/
     background-color: white;
     border-right: solid 1px rgba(0,0,0,0.3);
@@ -14,11 +14,37 @@
 
     #shapes-box {
 
-        img {
-            width: 70px;
-            right: 10px;
+        .mdl-list__item-primary-content {
+            margin-left:15px;
+        }
+
+        .shape-list-btn {
+            /*padding-left: 10px;*/
+            border-bottom: 1px solid rgba(0,0,0,0.3);
+            cursor:move;
+        }
+
+        .shape-list-img-sml {
+            display: inline-block;
+            width: 40px;
+            /*right: 10px;
             position: absolute;
-            top: 10px;
+            top: 10px;*/
+        }
+
+        .shape-list-size {
+            display: inline-block;
+        }
+
+        .shape-list-title {
+            padding-left: 10px;
+        }
+
+        .shape-list-sml-bar {
+            width: 5px;
+            background-color: rgb(68,138,255);
+            height: 100%;
+            display: inline-block;
         }
     }
 }

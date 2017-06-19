@@ -1,45 +1,41 @@
 ﻿<div id="shapes-panel">
     <div id="shapes-box">
         <ul id="shapes-list" class="demo-list-two mdl-list ">
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div id="shape-pattern-1" class="drag-element" draggable="true" data-sp-shape-w="2" data-sp-shape-h="2">
-                    <span class="mdl-list__item-primary-content">
+            <li class="mdl-list__item mdl-list__item--two-line shape-list-btn drag-element" name="shape-pattern-1"  draggable="true" data-sp-shape-w="2" data-sp-shape-h="2">
+                <div class="shape-list-sml-bar"></div>
+                    <div class="mdl-list__item-primary-content">
                         @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
-                        <img src="~/Images/shapes/room_squa_2x2.png" class="mdl-list__item-secondary-action" />
-                        <span>Square Room</span>
-                        <span class="mdl-list__item-sub-title">Size 2x2</span>
-                    </span>
+                        <img class="shape-list-img-sml" src="~/Images/shapes/room_squa_2x2.png" />
+                        <span class="mdl-list__item-sub-title shape-list-size">Size 2x2</span>
+                        <span class="shape-list-title">Square Room</span>
+                    </div>
+            </li>
+            <li class="mdl-list__item mdl-list__item--two-line shape-list-btn drag-element" name="shape-pattern-2" draggable="true" data-pt-shape-w="3" data-pt-shape-h="2">
+                <div class="shape-list-sml-bar"></div>
+                    <div class="mdl-list__item-primary-content">
+                        @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
+                        <img class="shape-list-img-sml" src="~/Images/shapes/room_rect_3x2.png" />
+                        <span class="mdl-list__item-sub-title shape-list-size">Size 3x2</span>
+                        <span class="shape-list-title">Rectangle Room</span>
+                    </div>
+            </li>
+            <li class="mdl-list__item mdl-list__item--two-line shape-list-btn drag-element" name="shape-pattern-3" draggable="true" data-pt-shape-w="32" data-pt-shape-h="3">
+                <div class="shape-list-sml-bar"></div>
+                    <div class="mdl-list__item-primary-content">
+                        @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
+                        <img class="shape-list-img-sml" src="~/Images/shapes/room_lshape_3x3.png" />
+                        <span class="mdl-list__item-sub-title shape-list-size">Size 3x3</span>
+                        <span class="shape-list-title">L-Shape Room</span>
                 </div>
             </li>
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div id="shape-pattern-2" class="drag-element" draggable="true" data-pt-shape-w="3" data-pt-shape-h="2">
-                    <span class="mdl-list__item-primary-content">
+            <li class="mdl-list__item mdl-list__item--two-line shape-list-btn drag-element" name="shape-pattern-4" draggable="true" data-pt-shape-w="3" data-pt-shape-h="3">
+                <div class="shape-list-sml-bar"></div>
+                    <div class="mdl-list__item-primary-content">
                         @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
-                        <img src="~/Images/shapes/room_rect_3x2.png" />
-                        <span>Rectangle Room</span>
-                        <span class="mdl-list__item-sub-title">Size 3x2</span>
-                    </span>
-                </div>
-            </li>
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div id="shape-pattern-3" class="drag-element" draggable="true" data-pt-shape-w="32" data-pt-shape-h="3">
-                    <span class="mdl-list__item-primary-content">
-                        @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
-                        <img src="~/Images/shapes/room_lshape_3x3.png" />
-                        <span>L-Shape Room</span>
-                        <span class="mdl-list__item-sub-title">Size 3x3</span>
-                    </span>
-                </div>
-            </li>
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div id="shape-pattern-4" class="drag-element" draggable="true" data-pt-shape-w="3" data-pt-shape-h="3">
-                    <span class="mdl-list__item-primary-content">
-                        @*<i class="material-icons mdl-list__item-avatar">select_all</i>*@
-                        <img src="~/Images/shapes/room_squa_3x3.png" />
-                        <span>Square Room</span>
-                        <span class="mdl-list__item-sub-title">Size 3x3</span>
-                    </span>
-                </div>
+                        <img class="shape-list-img-sml" src="~/Images/shapes/room_squa_3x3.png" />
+                        <span class="mdl-list__item-sub-title shape-list-size">Size 3x3</span>
+                        <span class="shape-list-title">Square Room</span>
+                    </div>
             </li>
         </ul>
     </div>
