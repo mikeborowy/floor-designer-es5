@@ -2,8 +2,6 @@
 /*Toolbar START*/
 $textFieldWidth: 450px;
 $color: rgb(0,0,0);
-$toolbarColorBgnd: rgb(255,235,59);
-$toolbarColorBgnd2: rgb(68,138,255);
 
 #designer-toolbar {
     height: 64px;
@@ -87,7 +85,7 @@ $toolbarColorBgnd2: rgb(68,138,255);
             color: rgb(68,138,255);
             
             &:after{
-                background-color:$toolbarColorBgnd2;
+                background-color:$colorBlue;
             }
         }
     }
@@ -119,12 +117,12 @@ $toolbarColorBgnd2: rgb(68,138,255);
 }
 
 .mdl-button-color-blue {
-    color: $toolbarColorBgnd2;
+    color: $colorBlue;
 }
 
 .designer-toolbar-button {
     text-transform: none;
-    background-color: $toolbarColorBgnd;
+    background-color: $colorYellow;
     box-shadow: none;
     text-transform: none;
     min-width: 26px;
@@ -205,7 +203,7 @@ $toolbarColorBgnd2: rgb(68,138,255);
         color: rgb(68,138,255);
 
         &:after{
-            background-color:$toolbarColorBgnd2
+            background-color:$colorBlue
         }
     }
 }

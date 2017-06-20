@@ -18,6 +18,10 @@ body {
     height: 100%;
     top: 0; }
 
+#stage-items-container .item-box {
+  background-color: aqua;
+  opacity: 0.3; }
+
 #designer-screen {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -271,7 +275,7 @@ body {
       height: 100%;
       display: inline-block; }
 
-#room-container {
+#stage-container {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -283,12 +287,12 @@ body {
   background-color: #eeeeee;
   /*margin-top: 64px;*/
   margin-left: 375px; }
-  #room-container:before, #room-container:after {
+  #stage-container:before, #stage-container:after {
     content: '';
     display: table; }
-  #room-container:after {
+  #stage-container:after {
     clear: both; }
-  #room-container #room {
+  #stage-container #stage {
     width: 620px;
     /*height: 600px;*/
     /*margin: auto;*/
@@ -301,26 +305,28 @@ body {
     -moz-box-shadow: 6px 6px 2px 0px rgba(50, 50, 50, 0.29);
     box-shadow: 6px 6px 2px 0px rgba(50, 50, 50, 0.29);
     /*z-index:2;*/ }
-    #room-container #room span {
+    #stage-container #stage span {
       display: inline-block; }
-    #room-container #room #room-grid-bgnd {
+    #stage-container #stage #stage-grid-bgnd {
       /*position: relative;
                 display: inline-block;
                 z-index: 1;*/
       /*Generated dynamically by JS*/ }
-      #room-container #room #room-grid-bgnd .room-board-field-bgnd {
+      #stage-container #stage #stage-grid-bgnd .stage-board-field-bgnd {
         /*Generated dynamically by JS*/ }
-    #room-container #room #room-grid-live {
+    #stage-container #stage #stage-grid-live {
       /*position: relative;
                 display: inline-block;
                 z-index: 2;*/
       /*Generated dynamically by JS*/ }
-      #room-container #room #room-grid-live .room-board-field {
+      #stage-container #stage #stage-grid-live .stage-board-field {
         /*Generated dynamically by JS*/ }
-        #room-container #room #room-grid-live .room-board-field .board-num {
+        #stage-container #stage #stage-grid-live .stage-board-field .board-num {
           /*Generated dynamically by JS*/ }
-    #room-container #room #room-tables-container {
-      /*position: relative;
-                display: inline-block;
-                z-index: 3;*/ }
+    #stage-container #stage #stage-items-container {
+      /*background-color:aqua;*/ }
+
+.board-highlight-over {
+  opacity: 0.3;
+  background-color: #448aff; }
 

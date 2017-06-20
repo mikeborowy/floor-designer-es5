@@ -211,10 +211,12 @@
     <Content Include="Views\Designer\designerStage.scss" />
     <Content Include="Content\mixins.scss" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Views\Designer\colors.scss" />
     <None Include="Views\Designer\designerToolbar.cshtml" />
     <Content Include="Views\Designer\designerToolbar.scss" />
     <Content Include="Views\Designer\index.scss" />
     <Content Include="Views\Shared\_Layout.scss" />
+    <Content Include="Views\Designer\stageItem.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

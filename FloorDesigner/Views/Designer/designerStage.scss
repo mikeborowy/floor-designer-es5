@@ -1,4 +1,4 @@
-﻿#room-container {
+﻿#stage-container {
     @include clearFix;
     @include box-sizing(border-box);
     /*height: 100%;*/
@@ -10,7 +10,7 @@
     /*margin-top: 64px;*/
     margin-left: 375px;
 
-    #room {
+    #stage {
         width: 620px;
         /*height: 600px;*/
         /*margin: auto;*/
@@ -21,25 +21,26 @@
         background-color: white;
         @include box-shadow( 6px, 6px, 2px, 0px, rgba(50, 50, 50, 0.29));
         /*z-index:2;*/
-        span{
-            display:inline-block;
+        span {
+            display: inline-block;
         }
-        #room-grid-bgnd {
+
+        #stage-grid-bgnd {
             /*position: relative;
                 display: inline-block;
                 z-index: 1;*/
             /*Generated dynamically by JS*/
-            .room-board-field-bgnd {
+            .stage-board-field-bgnd {
                 /*Generated dynamically by JS*/
             }
         }
 
-        #room-grid-live {
+        #stage-grid-live {
             /*position: relative;
                 display: inline-block;
                 z-index: 2;*/
             /*Generated dynamically by JS*/
-            .room-board-field {
+            .stage-board-field {
                 /*Generated dynamically by JS*/
                 .board-num {
                     /*Generated dynamically by JS*/
@@ -47,10 +48,13 @@
             }
         }
 
-        #room-tables-container {
-            /*position: relative;
-                display: inline-block;
-                z-index: 3;*/
+        #stage-items-container{
+            /*background-color:aqua;*/
         }
     }
+}
+
+.board-highlight-over {
+    opacity: 0.3;
+    background-color: $colorBlue;
 }

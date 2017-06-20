@@ -3,6 +3,8 @@
 
 @import '../Views/Shared/_Layout.scss';
 //Designer START
+@import '../Views/Designer/colors.scss';
+@import '../Views/Designer/stageItem.scss';
 @import '../Views/Designer/index.scss';
 @import '../Views/Designer/designerToolbar.scss';
 @import '../Views/Designer/designerShapesPanel.scss';
