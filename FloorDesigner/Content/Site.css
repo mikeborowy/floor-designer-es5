@@ -21,6 +21,12 @@ body {
 #stage-items-container .item-box {
   background-color: aqua;
   opacity: 0.3; }
+  #stage-items-container .item-box .shape-btn {
+    width: 10px;
+    height: 10px; }
+
+#stage-items-container .hidden {
+  visibility: visible; }
 
 #designer-screen {
   -webkit-box-sizing: border-box;
@@ -34,7 +40,7 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: blueviolet; }
+  background-color: #eeeeee; }
   #designer-screen:before, #designer-screen:after {
     content: '';
     display: table; }
