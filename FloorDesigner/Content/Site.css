@@ -19,11 +19,34 @@ body {
     top: 0; }
 
 #stage-items-container .item-box {
-  background-color: aqua;
-  opacity: 0.3; }
-  #stage-items-container .item-box .shape-btn {
-    width: 10px;
-    height: 10px; }
+  background-color: aqua; }
+  #stage-items-container .item-box .shape-button {
+    position: absolute;
+    background-color: red;
+    width: 26px;
+    height: 26px;
+    -webkit-border-radius: 50% 50%;
+    border-radius: 50% 50%;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */ }
+    #stage-items-container .item-box .shape-button.shape-rotate-btn {
+      top: 0;
+      left: 0;
+      cursor: grab;
+      cursor: -moz-grab;
+      cursor: -webkit-grab; }
+    #stage-items-container .item-box .shape-button.shape-drag-btn {
+      bottom: 0;
+      left: 0;
+      cursor: move; }
+    #stage-items-container .item-box .shape-button.shape-delete-btn {
+      top: 0;
+      right: 0;
+      cursor: pointer; }
+    #stage-items-container .item-box .shape-button.shape-resize-btn {
+      bottom: 0;
+      right: 0;
+      cursor: nw-resize; }
 
 #stage-items-container .hidden {
   visibility: visible; }

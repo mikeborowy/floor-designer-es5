@@ -1,11 +1,39 @@
 ﻿#stage-items-container {
     .item-box {
         background-color: aqua;
-        opacity: 0.3;
 
-        .shape-btn {
-            width: 10px;
-            height: 10px;
+        .shape-button {
+            position: absolute;
+            background-color: red;
+            width: 26px;
+            height: 26px;
+            @include border-radius(50% 50%);
+
+            &.shape-rotate-btn {
+                top: 0;
+                left: 0;
+                cursor: grab;
+                cursor: -moz-grab;
+                cursor: -webkit-grab;
+            }
+
+            &.shape-drag-btn {
+                bottom: 0;
+                left: 0;
+                cursor: move;
+            }
+
+            &.shape-delete-btn {
+                top: 0;
+                right: 0;
+                cursor: pointer;
+            }
+
+            &.shape-resize-btn {
+                bottom: 0;
+                right: 0;
+                cursor: nw-resize;
+            }
         }
     }
 
