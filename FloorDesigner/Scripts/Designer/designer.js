@@ -45,8 +45,9 @@
         });
 
         $(window).click(function (evt) {
-            console.log(evt.target.id);
+            //console.log(evt.target.id);
             console.log(evt.target.className);
+            console.log($(evt.currentTarget));
         });
 
         initApp();
@@ -228,6 +229,13 @@
                 evt.originalEvent.preventDefault(); // stops the browser from redirecting.
             }
 
+            $('#stage-grid-live')
+                .find('.stage-board-field-highlight')
+                .css({
+                    width: gridCellWidth,
+                    height: gridCellHeight
+                });
+
             //get freshly created item container
             var _currentItem = createStageItem(
                 draggedObj.id,
@@ -239,6 +247,8 @@
                 draggedObj.w,
                 draggedObj.h,
                 draggedObj.sh);
+
+
 
             return _currentItem;
         }
@@ -408,7 +418,7 @@
 
             deleteBtn.click(onDeleteBtnClick)
 
-            item.click(selectTable);
+            item.click(onSelectItem);
 
             //$('#stage-grid-live')
             //    .find('.stage-board-field-highlight')
@@ -488,19 +498,37 @@
 
         var prevItem = null
 
-        function selectTable(evt) {
+        function onSelectItem(evt) {
 
             selectedItem = $(evt.currentTarget);
-            selectedItem.attr('data-box-selected', true);
-            TweenMax.set(selectedItem, { zIndex: 9999 });
+            selectItem(selectedItem)
+        }
+
+        function selectItem(selectedItem) {
 
             if (prevItem != null) {
-                prevItem.attr('data-box-selected', false);
-                TweenMax.set(prevItem, { zIndex: 0 });
+                if (selectedItem.data('box-id') !== prevItem.data('box-id')) {
+                    selectedItem.attr('data-box-selected', true);
+                    selectedItem.addClass('item-selected');
+                    TweenMax.set(selectedItem, { zIndex: 9999 });
+
+                    prevItem.attr('data-box-selected', false);
+                    selectedItem.removeClass('item-selected');
+                    TweenMax.set(prevItem, { zIndex: 0 });
+                }
+
+            }
+            else {
+                selectedItem.attr('data-box-selected', true);
+                selectedItem.addClass('item-selected');
+                TweenMax.set(selectedItem, { zIndex: 9999 });
             }
 
             prevItem = selectedItem
+            console.log(prevItem)
         }
+
+
 
         /*
             SHAPE BUTTONS: DELETE
@@ -573,11 +601,37 @@
                     draggedItem.attr('data-box-y', Math.ceil(currentDraggable[0].y));
 
                     //currentDraggable[0].kill();
-                    currentDraggable[0].disable();
+                    //currentDraggable[0].disable();
+                    //keepBounds(draggedItem);
+
+                    //TweenMax.to(draggedItem, 0.2, {
+                    //    x: draggedItem.attr('data-box-x'),
+                    //    y: draggedItem.attr('data-box-y')
+                    //});
                 }
 
                 console.log('dragIsOn:' + dragIsOn)
                 console.log(currentDraggable)
+            }
+        }
+
+        function keepBounds(draggedItem) {
+            if (draggedItem.attr('data-box-x') < 0) {
+
+                draggedItem.attr('data-box-x', 0);
+
+                TweenMax.to(draggedItem, 0.2, {
+                    x: draggedItem.attr('data-box-x'),
+                });
+            }
+
+            if (draggedItem.attr('data-box-y') < 0) {
+
+                draggedItem.attr('data-box-y', 0);
+
+                TweenMax.to(draggedItem, 0.2, {
+                    y: draggedItem.attr('data-box-y'),
+                });
             }
         }
 
@@ -692,7 +746,7 @@
                         type: actionType,
                         throwProps: _throwProp,
                         //throwResistance: 0,
-                        maxDuration: 0.1,
+                        maxDuration: 0.3,
                         liveSnap: _liveSnap,
                         snap: {
 
@@ -713,7 +767,8 @@
                             _item.attr('data-box-x', Math.ceil(this.x));
                             _item.attr('data-box-y', Math.ceil(this.y));
                             //this.disable();
-
+                            if (currentDraggable != null)
+                                currentDraggable[0].kill();
                         }
                     });
 
