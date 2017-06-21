@@ -3,11 +3,10 @@
         background-color: aqua;
 
         .shape-button {
+            @include box-sizing(box);
             position: absolute;
-            background-color: red;
             width: 26px;
             height: 26px;
-            @include border-radius(50% 50%);
 
             &.shape-rotate-btn {
                 top: 0;
@@ -15,24 +14,87 @@
                 cursor: grab;
                 cursor: -moz-grab;
                 cursor: -webkit-grab;
+
+                .shape-rotate-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-rotate-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                }
             }
 
             &.shape-drag-btn {
                 bottom: 0;
                 left: 0;
                 cursor: move;
+
+                .shape-drag-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-drag-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                }
             }
 
             &.shape-delete-btn {
                 top: 0;
                 right: 0;
                 cursor: pointer;
+
+                .shape-delete-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-delete-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                }
             }
 
             &.shape-resize-btn {
                 bottom: 0;
                 right: 0;
                 cursor: nw-resize;
+                display:none;
+
+                .shape-resize-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    z-index:9;
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-resize-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                    z-index:0
+                }
             }
         }
     }

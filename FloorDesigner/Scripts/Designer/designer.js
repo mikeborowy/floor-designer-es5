@@ -299,16 +299,20 @@
             var _item = $(
                 "<div>" +
                 "<div class='shape-rotate-btn shape-button' data-btn-r='" + (r * (-1)) + "'>" +
-                "<i class='material-icons'>rotate_right</i>" +
+                "<div class='shape-rotate-inv-btn'/>" +
+                "<i class='material-icons shape-rotate-inv-icon'>rotate_right</i>" +
                 "</div>" +
                 "<div class='shape-drag-btn shape-button' data-btn-r='" + (r * (-1)) + "'>" +
-                "<i class='material-icons'>drag_handle</i>" +
+                "<div class='shape-drag-inv-btn'/>" +
+                "<i class='material-icons shape-drag-inv-icon'>drag_handle</i>" +
                 "</div>" +
                 "<div class='shape-delete-btn shape-button' data-btn-r='" + (r * (-1)) + "'>" +
-                "<i class='material-icons'>delete</i>" +
+                "<div class='shape-delete-inv-btn'/>" +
+                "<i class='material-icons shape-delete-inv-icon'>delete</i>" +
                 "</div>" +
                 "<div class='shape-resize-btn shape-button' data-btn-r='" + (r * (-1)) + "'>" +
-                "<i class='material-icons'>photo_size_select_small</i>" +
+                "<div class='shape-resize-inv-btn'/>" +
+                "<i class='material-icons shape-resize-inv-icon'>photo_size_select_small</i>" +
                 "</div>" +
                 "</div>"
             ).
@@ -376,23 +380,22 @@
         function initItem(newItem) {
 
             var _target = $(newItem);
-            var _rotateBtn = _target.find('.shape-rotate-btn');
+
             var _dragBtn = _target.find('.shape-drag-btn');
+            var _rotateBtn = _target.find('.shape-rotate-btn');
             var _deleteBtn = _target.find('.shape-delete-btn');
             var _resizeBtn = _target.find('.shape-resize-btn');
 
             _dragBtn.mousedown(onDragBtnDown);
             _dragBtn.mouseup(onDragBtnUp);
-            //_dragBtn.mouseleave(onDragBtnUp);
+            _dragBtn.mouseleave(onDragBtnUp);
 
             _rotateBtn.mousedown(onRotateBtnDown);
             _rotateBtn.mouseup(onRotateBtnUp);
-            //_rotateBtn.mouseleave(onRotateBtnUp);
+            _rotateBtn.mouseleave(onRotateBtnUp);
 
 
-            if (_deleteBtn) {
-                //_deleteBtn.click(OnDeleteBtnClick)
-            }
+            _deleteBtn.click(onDeleteBtnClick)
 
             // _target.click(selectTable);
 
@@ -442,6 +445,33 @@
         * CREATE STAGE ITEM END
         */
 
+       
+        /*
+            SHAPE BUTTONS: DELETE
+        */
+        function onDeleteBtnClick(evt) {
+            var _item = $(evt.currentTarget).parent();
+
+            //if (_target.parent().width() > _target.parent().height()) {
+            //    _newOriginX = (_target.parent().data('box-w') * gridWidth) * 0.5;
+            //    _newOriginY = (_target.parent().data('box-h') * gridHeight)  * 0.5;
+
+            //    TweenLite.set(_target.parent(), { transformOrigin: "" + _newOriginX + "px " + _newOriginY + "px" });
+
+            //    _target.parent().attr('data-box-tox', _newOriginX);
+            //    _target.parent().attr('data-box-toy', _newOriginY);
+            //}
+
+            TweenMax.to(_item, 0.1, {
+                scaleX: 0,
+                scaleY: 0,
+                onComplete: function () {
+
+                    _item.remove();
+                }
+            })
+        }
+
         /**
        * SHAPE BUTTONS: DRAG START
        */
@@ -450,17 +480,17 @@
             if (!dragIsOn) {
 
                 dragIsOn = true;
-                $(evt.target).parent().parent().css({ "z-index": "9" });
-                var draggedItem = $(evt.target).parent().parent();
 
-                if (currentDraggable != null) {
-                    currentDraggable[0].kill();
-                    currentDraggable = null;
-                }
+                var btn = $(evt.target);
+                var invBtn = btn.parent().find('.shape-drag-inv-btn');
+                var icon = btn.find('.shape-drag-inv-icon')
 
+                TweenLite.set(invBtn, { scaleX: 5, scaleY: 5 })
+
+                var draggedItem = btn.parent().parent();
                 createDraggableStageItem(draggedItem, actionsOfDraggable.drag);
+                console.log('dragIsOn:' + dragIsOn)
             }
-            console.log('dragIsOn: ' + dragIsOn);
 
         }
 
@@ -468,19 +498,24 @@
 
             if (dragIsOn) {
 
-                //var _item = $(evt.target).parent().parent();
-                //_item.attr('data-box-x', Math.ceil(currentDraggable[0].x));
-                //_item.attr('data-box-y', Math.ceil(currentDraggable[0].y));
-
-                //if (_draggableCurrent != null)
-                //    _draggableCurrent[0].kill();
-                $(evt.target).parent().parent().css({ "z-index": "9" });
-
                 dragIsOn = false;
+
+                var btn = $(evt.target);
+                var invBtn = btn.parent().find('.shape-drag-inv-btn');
+                var icon = btn.find('.shape-drag-inv-icon')
+
+                TweenLite.set(invBtn, { scaleX: 1, scaleY: 1 })
+
+
+                if (currentDraggable != null) {
+
+                    //currentDraggable[0].kill();
+                    currentDraggable[0].disable();
+                }
+
+                console.log('dragIsOn:' + dragIsOn)
+                console.log(currentDraggable)
             }
-
-            console.log('dragIsOn: ' + dragIsOn);
-
         }
 
         /**
@@ -491,41 +526,44 @@
         * SHAPE BUTTONS: DRAG START
         */
         function onRotateBtnDown(evt) {
-
-
             if (!rotateIsOn) {
 
                 rotateIsOn = true;
-                $(evt.target).parent().css({ "z-index": "9" });
 
-                var draggedItem = $(evt.target).parent().parent();
+                var btn = $(evt.target);
+                var invBtn = btn.parent().find('.shape-rotate-inv-btn');
+                var icon = btn.find('.shape-rotate-inv-icon')
 
-                //if (currentDraggable != null) {
-                //    currentDraggable[0].kill();
-                //    currentDraggable = null;
-                //}
 
+                TweenLite.set(invBtn, { scaleX: 5, scaleY: 5 })
+
+                var draggedItem = btn.parent().parent();
                 createDraggableStageItem(draggedItem, actionsOfDraggable.rotate);
+                console.log('rotateIsOn:' + rotateIsOn)
             }
-            console.log('rotateIsOn: ' + rotateIsOn);
         }
 
         function onRotateBtnUp(evt) {
 
             if (rotateIsOn) {
 
-                //var _item = $(evt.target).parent().parent();
-                //_item.attr('data-box-x', Math.ceil(currentDraggable[0].x));
-                //_item.attr('data-box-y', Math.ceil(currentDraggable[0].y));
-
-                //if (_draggableCurrent != null)
-                //    _draggableCurrent[0].kill();
-
                 rotateIsOn = false;
+                var btn = $(evt.target);
+                var invBtn = btn.parent().find('.shape-rotate-inv-btn');
+                var icon = btn.find('.shape-rotate-inv-icon')
+
+                TweenLite.set(invBtn, { scaleX: 1, scaleY: 1 })
+
+                if (currentDraggable != null) {
+
+                    //currentDraggable[0].kill();
+                    currentDraggable[0].disable();
+                }
+
+                console.log('rotateIsOn:' + rotateIsOn)
+                console.log(currentDraggable)
+
             }
-
-            console.log('rotateIsOn: ' + rotateIsOn);
-
         }
 
         /**
@@ -538,20 +576,17 @@
 
         function createDraggableStageItem(item, actionType) {
 
-            console.log(actionType)
-
             var _stage = $('#stage');
             var _snap = true;
-            var _liveSnap = false;
+            var _liveSnap = true;
             var _throwProp = true;
             var _rotationSnap = 90;
-            var _returnedDraggable = null;
 
             switch (actionType) {
                 //Drag Me
                 case actionsOfDraggable.drag:
 
-                    currentDraggable =  Draggable.create(item, {
+                    currentDraggable = Draggable.create(item, {
                         bounds: _stage,
                         autoScroll: 1,
                         edgeResistance: 0.65,
@@ -567,19 +602,25 @@
                                 return (_snap || _liveSnap) ? Math.round(endValue / gridCellHeight) * gridCellHeight : endValue;
                             }
                         },
+                        //onPress: function (evt) {
+                        //    evt.stopPropagation(); // cancel drag
+                        //},
                         onDrag: function () { },
                         onThrowComplete: function () {
 
                             item.attr('data-box-x', Math.ceil(this.x));
                             item.attr('data-box-y', Math.ceil(this.y));
-                            this.disable();
+                            //this.disable();
+
                         }
                     });
+
+
                     break;
 
                 case actionsOfDraggable.rotate:
 
-                    currentDraggable =  Draggable.create(item, {
+                    currentDraggable = Draggable.create(item, {
                         type: "rotation",
                         throwProps: _throwProp,
                         snap: function (endValue) {
@@ -592,20 +633,21 @@
                             when the "snap" checkbox is selected.*/
                             return Math.round(endValue / _rotationSnap) * _rotationSnap;
                         },
-                        onPress: function (evt) {
-                            evt.stopPropagation(); // cancel drag
-                        },
+                        //onPress: function (evt) {
+                        //    evt.stopPropagation(); // cancel drag
+                        //},
                         onDrag: setNumberRotation,
                         onThrowUpdate: setNumberRotation,
                         onThrowComplete: function (evt) {
 
                             item.attr('data-box-r', (this.rotation % 360));
-                            this.disable();
-                            
+                            //this.disable();
+
                         }
                     });
                     break;
             }
+
         }
 
         function setNumberRotation() {
