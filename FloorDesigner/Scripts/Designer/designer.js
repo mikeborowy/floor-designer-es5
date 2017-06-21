@@ -30,6 +30,7 @@
             { "room-rct-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
             { "room-l-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } }
         ];
+        var itemBoderSize = 3;
         var paddingLeft = 0;
         var paddingTop = 0;
         //---zoom---\\
@@ -41,6 +42,11 @@
 
         $(window).resize(function () {
             RefreshSeatingPlanScreen();
+        });
+
+        $(window).click(function (evt) {
+            console.log(evt.target.id);
+            console.log(evt.target.className);
         });
 
         initApp();
@@ -294,9 +300,9 @@
        */
         function createStageItem(id, x, y, r, tox, toy, w, h, sh) {
 
-            var _stageItemsContainer = $('#stage-items-container');
+            var stageItemsContainer = $('#stage-items-container');
 
-            var _item = $(
+            var item = $(
                 "<div>" +
                 "<div class='shape-rotate-btn shape-button' data-btn-r='" + (r * (-1)) + "'>" +
                 "<div class='shape-rotate-inv-btn'/>" +
@@ -335,69 +341,74 @@
                     height: (gridCellHeight) * h,
                     'max-height': (gridCellHeight + 1) * h
                 }).
-                appendTo(_stageItemsContainer);
-
-            var _newOriginX = (_item.data('box-w') * gridCellWidth) * 0.5;
-            var _newOriginY = (_item.data('box-h') * gridCellHeight) * 0.5;
+                appendTo(stageItemsContainer);
 
             //if (_item.width() > _item.height()) {
             //    _newOriginX = (_item.data('box-w') * gridCellWidth) - (gridCellWidth * 0.5);
             //    _newOriginY = (_item.data('box-h') * gridCellHeight) - (gridCellHeight * 0.5);
             //}
 
-            createRegularShapeRoom()
-                .appendTo(_item);
+            if (item.data('box-shape') === "shape-room-l-3x2") {
+                createLShapeRoom()
+                    .appendTo(item);
+            }
+            else {
+                createRegularShapeRoom()
+                    .appendTo(item);
+            }
 
+            var newOriginX = (item.data('box-w') * gridCellWidth) * 0.5;
+            var newOriginY = (item.data('box-h') * gridCellHeight) * 0.5;
+            TweenLite.set(item, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
 
-            TweenLite.set(_item, { transformOrigin: "" + _newOriginX + "px " + _newOriginY + "px" });
-            TweenMax.set(_item, { rotation: r });
+            TweenMax.set(item, { rotation: r });
 
             //TweenMax.set($('.sp-shape-rotate-ico'), { rotation: (360 - r) });
             //TweenMax.set($('.sp-shape-drag-ico'), { rotation: (360 - r) });
             //TweenMax.set($('.sp-shape-delete-ico'), { rotation: (360 - r) });
 
-            _item.attr('data-box-tox', _newOriginX);
-            _item.attr('data-box-toy', _newOriginY);
+            item.attr('data-box-tox', newOriginX);
+            item.attr('data-box-toy', newOriginY);
 
             removeDuplicate('.item-box');
 
             //setup item container on stage
-            TweenLite.from(_item, 0.3, {
+            TweenLite.from(item, 0.3, {
                 scaleX: 0,
                 scaleY: 0,
                 onComplete: initItem,
-                onCompleteParams: [_item]
+                onCompleteParams: [item]
             });
 
-            TweenLite.to(_item, 0, { x: x, y: y });
+            TweenLite.to(item, 0, { x: x, y: y });
 
             //if (getUrlParameter('action') == "edit") {
             //    turnOff(currentTableNum++);
             //}
 
-            return _item;
+            return item;
         }
 
         function initItem(newItem) {
 
-            var _target = $(newItem);
+            var item = $(newItem);
 
-            var _dragBtn = _target.find('.shape-drag-btn');
-            var _rotateBtn = _target.find('.shape-rotate-btn');
-            var _deleteBtn = _target.find('.shape-delete-btn');
-            var _resizeBtn = _target.find('.shape-resize-btn');
+            var dragBtn = item.find('.shape-drag-btn');
+            var rotateBtn = item.find('.shape-rotate-btn');
+            var deleteBtn = item.find('.shape-delete-btn');
+            var resizeBtn = item.find('.shape-resize-btn');
 
-            _dragBtn.mousedown(onDragBtnDown);
-            _dragBtn.mouseup(onDragBtnUp);
-            _dragBtn.mouseleave(onDragBtnUp);
+            dragBtn.mousedown(onDragBtnDown);
+            dragBtn.mouseup(onDragBtnUp);
+            dragBtn.mouseleave(onDragBtnUp);
 
-            _rotateBtn.mousedown(onRotateBtnDown);
-            _rotateBtn.mouseup(onRotateBtnUp);
-            _rotateBtn.mouseleave(onRotateBtnUp);
+            rotateBtn.mousedown(onRotateBtnDown);
+            rotateBtn.mouseup(onRotateBtnUp);
+            rotateBtn.mouseleave(onRotateBtnUp);
 
-            _deleteBtn.click(onDeleteBtnClick)
+            deleteBtn.click(onDeleteBtnClick)
 
-            _target.click(selectTable);
+            item.click(selectTable);
 
             //$('#stage-grid-live')
             //    .find('.stage-board-field-highlight')
@@ -409,17 +420,47 @@
 
         function createRegularShapeRoom() {
 
-            var _w = (gridCellWidth * draggedObj.w) - (paddingLeft * 2);
-            var _h = (gridCellHeight * draggedObj.h) - (paddingTop * 2);
+            var w = (gridCellWidth * draggedObj.w) - (paddingLeft * 2);
+            var h = (gridCellHeight * draggedObj.h) - (paddingTop * 2);
 
-            var _itemBgnd = $("<div/>").
+            var itemBgnd = $("<div/>").
                 attr('class', 'item-bgnd ' + draggedObj.sh).
                 css({
-                    width: _w,
-                    height: _h
+                    width: w,
+                    height: h
                 })
 
-            return _itemBgnd;
+            return itemBgnd;
+        };
+
+        function createLShapeRoom() {
+
+            var w = (gridCellWidth * draggedObj.w) - (paddingLeft * 2);
+            var h = (gridCellHeight * draggedObj.h) - (paddingTop * 2);
+
+            var itemBgnd = $("<div><div class='l-shape-top'/><div class='l-shape-bottom'/></div>").
+                attr('class', 'item-bgnd ' + draggedObj.sh).
+                css({
+                    width: w,
+                    height: h
+                })
+
+
+            var top = itemBgnd.
+                find('.l-shape-top').
+                css({
+                    width: w / draggedObj.w + itemBoderSize,
+                    height: h / draggedObj.h
+                });
+
+            var bottom = itemBgnd.
+                find('.l-shape-bottom').
+                css({
+                    width: w - gridCellWidth,
+                    height: h
+                });
+
+            return itemBgnd;
         };
 
         function removeDuplicate(selector) {
@@ -453,8 +494,7 @@
             selectedItem.attr('data-box-selected', true);
             TweenMax.set(selectedItem, { zIndex: 9999 });
 
-            if (prevItem != null)
-            {
+            if (prevItem != null) {
                 prevItem.attr('data-box-selected', false);
                 TweenMax.set(prevItem, { zIndex: 0 });
             }
@@ -466,7 +506,7 @@
             SHAPE BUTTONS: DELETE
         */
         function onDeleteBtnClick(evt) {
-            var _item = $(evt.currentTarget).parent();
+            var item = $(evt.currentTarget).parent();
 
             //if (_target.parent().width() > _target.parent().height()) {
             //    _newOriginX = (_target.parent().data('box-w') * gridWidth) * 0.5;
@@ -478,12 +518,16 @@
             //    _target.parent().attr('data-box-toy', _newOriginY);
             //}
 
-            TweenMax.to(_item, 0.1, {
+            //var newOriginX = (item.data('box-w') * gridCellWidth) * 0.5;
+            //var newOriginY = (item.data('box-h') * gridCellHeight) * 0.5;
+            //TweenLite.set(item, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
+
+            TweenMax.to(item, 0.1, {
                 scaleX: 0,
                 scaleY: 0,
                 onComplete: function () {
 
-                    _item.remove();
+                    item.remove();
                 }
             })
         }
@@ -556,6 +600,18 @@
                 TweenLite.set(invBtn, { scaleX: 5, scaleY: 5 })
 
                 var draggedItem = btn.parent().parent();
+                var newOriginX;
+                var newOriginY;
+
+                if (draggedItem.width() > draggedItem.height()) {
+
+                    newOriginX = (draggedItem.data('box-w') * gridCellWidth) - (gridCellWidth * 0.5);
+                    newOriginY = (draggedItem.data('box-h') * gridCellHeight) - (gridCellHeight * 0.5);
+                    TweenLite.set(draggedItem, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
+
+                    draggedItem.attr('data-box-tox', newOriginX);
+                    draggedItem.attr('data-box-toy', newOriginY);
+                }
                 createDraggableStageItem(draggedItem, actionsOfDraggable.rotate);
                 console.log('rotateIsOn:' + rotateIsOn)
             }
@@ -572,7 +628,8 @@
 
                 TweenLite.set(invBtn, { scaleX: 1, scaleY: 1 })
 
-                var draggedItem = btn.parent().parent();
+                var draggedItem = $(btn.parent().parent());
+
 
                 if (currentDraggable != null) {
 
@@ -581,19 +638,19 @@
                     if (currentDraggable[0].rotation <= -360) {
                         draggedItem.attr('data-box-r', currentDraggable[0].rotation + 360);
                     }
-                    else if (_draggableCurrent[0].rotation >= 360) {
+                    else if (currentDraggable[0].rotation >= 360) {
                         draggedItem.attr('data-box-r', currentDraggable[0].rotation - 360);
                     }
                     else {
                         draggedItem.attr('data-box-r', currentDraggable[0].rotation);
                     }
                     //currentDraggable[0].kill();
-                   // currentDraggable[0].disable();
+                    // currentDraggable[0].disable();
 
                     TweenMax.to(draggedItem, 0.2, {
-                        shortRotation: draggedItem.attr('data-box-r')
-                        //onComplete: assignBtnsListeners,
-                        //onCompleteParams: [_invBtn]
+                        shortRotation: draggedItem.attr('data-box-r'),
+                        onComplete: rotationComplete,
+                        onCompleteParams: [draggedItem]
                     });
                 }
 
@@ -603,6 +660,11 @@
             }
         }
 
+        function rotationComplete(draggedItem) {
+            //    var newOriginX = (draggedItem.data('box-w') * gridCellWidth) * 0.5;
+            //    var newOriginY = (draggedItem.data('box-h') * gridCellHeight) * 0.5;
+            //    TweenLite.set(draggedItem, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
+        }
         /**
         * SHAPE BUTTONS:DRAG END
         */
@@ -692,7 +754,7 @@
             $(item).attr('data-box-r', (this.rotation % 360));
 
             var _angle = this.rotation;
-            TweenLite.set(item.find('.shape-button'), { rotation: -(_angle % 360)  });
+            TweenLite.set(item.find('.shape-button'), { rotation: -(_angle % 360) });
         }
 
         /**

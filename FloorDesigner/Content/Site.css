@@ -18,8 +18,21 @@ body {
     height: 100%;
     top: 0; }
 
-#stage-items-container .item-box .item-bgnd {
-  border: 5px solid #000;
+#stage-items-container .item-box .item-bgnd.shape-room-sqr-2x2, #stage-items-container .item-box .item-bgnd.shape-room-rct-3x2, #stage-items-container .item-box .item-bgnd.shape-room-sqr-3x3 {
+  border: 4px solid #444444;
+  background-color: white; }
+
+#stage-items-container .item-box .item-bgnd.shape-room-l-3x2 .l-shape-top {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  border-top: 4px solid #444444;
+  border-right: 4px solid #444444;
+  border-bottom: 4px solid #444444;
+  background-color: white; }
+
+#stage-items-container .item-box .item-bgnd.shape-room-l-3x2 .l-shape-bottom {
+  border: 4px solid #444444;
   background-color: white; }
 
 #stage-items-container .item-box .shape-button {
@@ -28,7 +41,8 @@ body {
   box-sizing: box;
   position: absolute;
   width: 26px;
-  height: 26px; }
+  height: 26px;
+  z-index: 30; }
   #stage-items-container .item-box .shape-button.shape-rotate-btn {
     top: -12px;
     left: -12px;
@@ -50,7 +64,13 @@ body {
       /* display: inline-block; */
       top: 0;
       color: white;
-      background-color: black; }
+      background-color: #444444;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */ }
+      #stage-items-container .item-box .shape-button.shape-rotate-btn .shape-rotate-inv-icon:hover {
+        background-color: #ffeb3b; }
   #stage-items-container .item-box .shape-button.shape-drag-btn {
     bottom: -12px;
     left: -12px;
@@ -70,7 +90,13 @@ body {
       /* display: inline-block; */
       top: 0;
       color: white;
-      background-color: black; }
+      background-color: #444444;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */ }
+      #stage-items-container .item-box .shape-button.shape-drag-btn .shape-drag-inv-icon:hover {
+        background-color: #ffeb3b; }
   #stage-items-container .item-box .shape-button.shape-delete-btn {
     top: -12px;
     right: -12px;
@@ -90,7 +116,13 @@ body {
       /* display: inline-block; */
       top: 0;
       color: white;
-      background-color: black; }
+      background-color: #444444;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */ }
+      #stage-items-container .item-box .shape-button.shape-delete-btn .shape-delete-inv-icon:hover {
+        background-color: red; }
   #stage-items-container .item-box .shape-button.shape-resize-btn {
     bottom: 12px;
     right: 12px;
@@ -113,7 +145,13 @@ body {
       top: 0;
       z-index: 0;
       color: white;
-      background-color: black; }
+      background-color: #444444;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */ }
+      #stage-items-container .item-box .shape-button.shape-resize-btn .shape-resize-inv-icon:hover {
+        background-color: #ffeb3b; }
 
 #stage-items-container .hidden {
   visibility: visible; }

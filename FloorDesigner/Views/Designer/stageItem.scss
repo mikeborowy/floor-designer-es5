@@ -1,13 +1,38 @@
 ﻿$btnPosition: 12px;
 $iconColor: white;
-$iconBgndColor: black;
-#stage-items-container
-{
+$iconBgndColor: #444444;
+$hoverBgndColor: $colorYellow;
+$borderSize: 4px;
+$borderColor: #444444;
+
+
+#stage-items-container {
     .item-box {
 
         .item-bgnd {
-            border: 5px solid #000;
-            background-color:white;
+            &.shape-room-sqr-2x2,
+            &.shape-room-rct-3x2,
+            &.shape-room-sqr-3x3 {
+                border: $borderSize solid $borderColor;
+                background-color: white;
+            }
+
+            &.shape-room-l-3x2 {
+                .l-shape-top {
+                    position: absolute;
+                    z-index: 2;
+                    right: 0;
+                    border-top: $borderSize solid $borderColor;
+                    border-right: $borderSize solid $borderColor;
+                    border-bottom: $borderSize solid $borderColor;
+                    background-color: white;
+                }
+
+                .l-shape-bottom {
+                    border: $borderSize solid $borderColor;
+                    background-color: white;
+                }
+            }
         }
 
         .shape-button {
@@ -15,6 +40,7 @@ $iconBgndColor: black;
             position: absolute;
             width: 26px;
             height: 26px;
+            z-index: 30;
 
             &.shape-rotate-btn {
                 top: -$btnPosition;
@@ -38,6 +64,11 @@ $iconBgndColor: black;
                     top: 0;
                     color: $iconColor;
                     background-color: $iconBgndColor;
+                    @include border-radius(50% );
+
+                    &:hover {
+                        background-color: $hoverBgndColor;
+                    }
                 }
             }
 
@@ -61,6 +92,11 @@ $iconBgndColor: black;
                     top: 0;
                     color: $iconColor;
                     background-color: $iconBgndColor;
+                    @include border-radius(50% );
+
+                    &:hover {
+                        background-color: $hoverBgndColor;
+                    }
                 }
             }
 
@@ -84,6 +120,11 @@ $iconBgndColor: black;
                     top: 0;
                     color: $iconColor;
                     background-color: $iconBgndColor;
+                    @include border-radius(50% );
+
+                    &:hover {
+                        background-color: red;
+                    }
                 }
             }
 
@@ -110,6 +151,11 @@ $iconBgndColor: black;
                     z-index: 0;
                     color: $iconColor;
                     background-color: $iconBgndColor;
+                    @include border-radius(50% );
+
+                    &:hover {
+                        background-color: $hoverBgndColor;
+                    }
                 }
             }
         }
