@@ -326,6 +326,7 @@
                 attr('data-box-w', w).
                 attr('data-box-h', h).
                 attr('data-box-shape', sh).
+                attr('data-box-selected', false).
                 attr('data-parent', 'stage').
                 css({
                     position: 'absolute',
@@ -394,17 +395,16 @@
             _rotateBtn.mouseup(onRotateBtnUp);
             _rotateBtn.mouseleave(onRotateBtnUp);
 
-
             _deleteBtn.click(onDeleteBtnClick)
 
-            // _target.click(selectTable);
+            _target.click(selectTable);
 
-            $('#stage-grid-live')
-                .find('.stage-board-field-highlight')
-                .css({
-                    width: (gridCellWidth),
-                    height: (gridCellHeight)
-                });
+            //$('#stage-grid-live')
+            //    .find('.stage-board-field-highlight')
+            //    .css({
+            //        width: (gridCellWidth),
+            //        height: (gridCellHeight)
+            //    });
         };
 
         function createRegularShapeRoom() {
@@ -445,7 +445,23 @@
         * CREATE STAGE ITEM END
         */
 
-       
+        var prevItem = null
+
+        function selectTable(evt) {
+
+            selectedItem = $(evt.currentTarget);
+            selectedItem.attr('data-box-selected', true);
+            TweenMax.set(selectedItem, { zIndex: 9999 });
+
+            if (prevItem != null)
+            {
+                prevItem.attr('data-box-selected', false);
+                TweenMax.set(prevItem, { zIndex: 0 });
+            }
+
+            prevItem = selectedItem
+        }
+
         /*
             SHAPE BUTTONS: DELETE
         */
@@ -506,8 +522,11 @@
 
                 TweenLite.set(invBtn, { scaleX: 1, scaleY: 1 })
 
+                var draggedItem = btn.parent().parent();
 
                 if (currentDraggable != null) {
+                    draggedItem.attr('data-box-x', Math.ceil(currentDraggable[0].x));
+                    draggedItem.attr('data-box-y', Math.ceil(currentDraggable[0].y));
 
                     //currentDraggable[0].kill();
                     currentDraggable[0].disable();
@@ -534,7 +553,6 @@
                 var invBtn = btn.parent().find('.shape-rotate-inv-btn');
                 var icon = btn.find('.shape-rotate-inv-icon')
 
-
                 TweenLite.set(invBtn, { scaleX: 5, scaleY: 5 })
 
                 var draggedItem = btn.parent().parent();
@@ -554,10 +572,20 @@
 
                 TweenLite.set(invBtn, { scaleX: 1, scaleY: 1 })
 
-                if (currentDraggable != null) {
+                var draggedItem = btn.parent().parent();
 
+                draggedItem.attr('data-box-r', currentDraggable[0].rotation);
+
+                if (currentDraggable != null) {
+                    
                     //currentDraggable[0].kill();
-                    currentDraggable[0].disable();
+                   // currentDraggable[0].disable();
+
+                    TweenMax.to(draggedItem, 0.2, {
+                        shortRotation: draggedItem.attr('data-box-r')
+                        //onComplete: assignBtnsListeners,
+                        //onCompleteParams: [_invBtn]
+                    });
                 }
 
                 console.log('rotateIsOn:' + rotateIsOn)
@@ -578,7 +606,7 @@
 
             var _stage = $('#stage');
             var _snap = true;
-            var _liveSnap = true;
+            var _liveSnap = false;
             var _throwProp = true;
             var _rotationSnap = 90;
 
@@ -608,8 +636,9 @@
                         onDrag: function () { },
                         onThrowComplete: function () {
 
-                            item.attr('data-box-x', Math.ceil(this.x));
-                            item.attr('data-box-y', Math.ceil(this.y));
+                            var _item = $(item);
+                            _item.attr('data-box-x', Math.ceil(this.x));
+                            _item.attr('data-box-y', Math.ceil(this.y));
                             //this.disable();
 
                         }
@@ -640,9 +669,12 @@
                         onThrowUpdate: setNumberRotation,
                         onThrowComplete: function (evt) {
 
-                            item.attr('data-box-r', (this.rotation % 360));
+                            var _item = $(item);
+                            _item.attr('data-box-r', (this.rotation % 360));
                             //this.disable();
 
+                            if (currentDraggable != null)
+                                currentDraggable[0].kill();
                         }
                     });
                     break;
@@ -650,16 +682,14 @@
 
         }
 
-        function setNumberRotation() {
+        function setNumberRotation(evt) {
+
+            var item = $(this.target);
+            $(item).attr('data-box-r', (this.rotation % 360));
 
             var _angle = this.rotation;
-
-            console.log(360 - _angle);
-
-            TweenLite.set($('.shape-button'), { rotation: (360 - _angle) });
+            TweenLite.set(item.find('.shape-button'), { rotation: -(_angle % 360)  });
         }
-
-
 
         /**
         * CREATE DRAGGABLE STAGE ITEM END

@@ -18,92 +18,102 @@ body {
     height: 100%;
     top: 0; }
 
-#stage-items-container .item-box {
-  background-color: aqua; }
-  #stage-items-container .item-box .shape-button {
-    -webkit-box-sizing: box;
-    -moz-box-sizing: box;
-    box-sizing: box;
-    position: absolute;
-    width: 26px;
-    height: 26px; }
-    #stage-items-container .item-box .shape-button.shape-rotate-btn {
+#stage-items-container .item-box .item-bgnd {
+  border: 5px solid #000;
+  background-color: white; }
+
+#stage-items-container .item-box .shape-button {
+  -webkit-box-sizing: box;
+  -moz-box-sizing: box;
+  box-sizing: box;
+  position: absolute;
+  width: 26px;
+  height: 26px; }
+  #stage-items-container .item-box .shape-button.shape-rotate-btn {
+    top: -12px;
+    left: -12px;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab; }
+    #stage-items-container .item-box .shape-button.shape-rotate-btn .shape-rotate-inv-btn {
+      /* position: relative; */
+      width: 26px;
+      height: 26px;
+      /*background-color: red;*/
+      -webkit-border-radius: 50% 50%;
+      border-radius: 50% 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */
+      /* display: inline-block; */ }
+    #stage-items-container .item-box .shape-button.shape-rotate-btn .shape-rotate-inv-icon {
+      position: absolute;
+      /* display: inline-block; */
       top: 0;
-      left: 0;
-      cursor: grab;
-      cursor: -moz-grab;
-      cursor: -webkit-grab; }
-      #stage-items-container .item-box .shape-button.shape-rotate-btn .shape-rotate-inv-btn {
-        /* position: relative; */
-        width: 26px;
-        height: 26px;
-        /*background-color: red;*/
-        -webkit-border-radius: 50% 50%;
-        border-radius: 50% 50%;
-        background-clip: padding-box;
-        /* stops bg color from leaking outside the border: */
-        /* display: inline-block; */ }
-      #stage-items-container .item-box .shape-button.shape-rotate-btn .shape-rotate-inv-icon {
-        position: absolute;
-        /* display: inline-block; */
-        top: 0; }
-    #stage-items-container .item-box .shape-button.shape-drag-btn {
-      bottom: 0;
-      left: 0;
-      cursor: move; }
-      #stage-items-container .item-box .shape-button.shape-drag-btn .shape-drag-inv-btn {
-        /* position: relative; */
-        width: 26px;
-        height: 26px;
-        /*background-color: red;*/
-        -webkit-border-radius: 50% 50%;
-        border-radius: 50% 50%;
-        background-clip: padding-box;
-        /* stops bg color from leaking outside the border: */
-        /* display: inline-block; */ }
-      #stage-items-container .item-box .shape-button.shape-drag-btn .shape-drag-inv-icon {
-        position: absolute;
-        /* display: inline-block; */
-        top: 0; }
-    #stage-items-container .item-box .shape-button.shape-delete-btn {
+      color: white;
+      background-color: black; }
+  #stage-items-container .item-box .shape-button.shape-drag-btn {
+    bottom: -12px;
+    left: -12px;
+    cursor: move; }
+    #stage-items-container .item-box .shape-button.shape-drag-btn .shape-drag-inv-btn {
+      /* position: relative; */
+      width: 26px;
+      height: 26px;
+      /*background-color: red;*/
+      -webkit-border-radius: 50% 50%;
+      border-radius: 50% 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */
+      /* display: inline-block; */ }
+    #stage-items-container .item-box .shape-button.shape-drag-btn .shape-drag-inv-icon {
+      position: absolute;
+      /* display: inline-block; */
       top: 0;
-      right: 0;
-      cursor: pointer; }
-      #stage-items-container .item-box .shape-button.shape-delete-btn .shape-delete-inv-btn {
-        /* position: relative; */
-        width: 26px;
-        height: 26px;
-        /*background-color: red;*/
-        -webkit-border-radius: 50% 50%;
-        border-radius: 50% 50%;
-        background-clip: padding-box;
-        /* stops bg color from leaking outside the border: */
-        /* display: inline-block; */ }
-      #stage-items-container .item-box .shape-button.shape-delete-btn .shape-delete-inv-icon {
-        position: absolute;
-        /* display: inline-block; */
-        top: 0; }
-    #stage-items-container .item-box .shape-button.shape-resize-btn {
-      bottom: 0;
-      right: 0;
-      cursor: nw-resize;
-      display: none; }
-      #stage-items-container .item-box .shape-button.shape-resize-btn .shape-resize-inv-btn {
-        /* position: relative; */
-        width: 26px;
-        height: 26px;
-        /*background-color: red;*/
-        z-index: 9;
-        -webkit-border-radius: 50% 50%;
-        border-radius: 50% 50%;
-        background-clip: padding-box;
-        /* stops bg color from leaking outside the border: */
-        /* display: inline-block; */ }
-      #stage-items-container .item-box .shape-button.shape-resize-btn .shape-resize-inv-icon {
-        position: absolute;
-        /* display: inline-block; */
-        top: 0;
-        z-index: 0; }
+      color: white;
+      background-color: black; }
+  #stage-items-container .item-box .shape-button.shape-delete-btn {
+    top: -12px;
+    right: -12px;
+    cursor: pointer; }
+    #stage-items-container .item-box .shape-button.shape-delete-btn .shape-delete-inv-btn {
+      /* position: relative; */
+      width: 26px;
+      height: 26px;
+      /*background-color: red;*/
+      -webkit-border-radius: 50% 50%;
+      border-radius: 50% 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */
+      /* display: inline-block; */ }
+    #stage-items-container .item-box .shape-button.shape-delete-btn .shape-delete-inv-icon {
+      position: absolute;
+      /* display: inline-block; */
+      top: 0;
+      color: white;
+      background-color: black; }
+  #stage-items-container .item-box .shape-button.shape-resize-btn {
+    bottom: 12px;
+    right: 12px;
+    cursor: nw-resize;
+    display: none; }
+    #stage-items-container .item-box .shape-button.shape-resize-btn .shape-resize-inv-btn {
+      /* position: relative; */
+      width: 26px;
+      height: 26px;
+      /*background-color: red;*/
+      z-index: 9;
+      -webkit-border-radius: 50% 50%;
+      border-radius: 50% 50%;
+      background-clip: padding-box;
+      /* stops bg color from leaking outside the border: */
+      /* display: inline-block; */ }
+    #stage-items-container .item-box .shape-button.shape-resize-btn .shape-resize-inv-icon {
+      position: absolute;
+      /* display: inline-block; */
+      top: 0;
+      z-index: 0;
+      color: white;
+      background-color: black; }
 
 #stage-items-container .hidden {
   visibility: visible; }

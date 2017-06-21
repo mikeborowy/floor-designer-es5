@@ -1,6 +1,14 @@
-﻿#stage-items-container {
+﻿$btnPosition: 12px;
+$iconColor: white;
+$iconBgndColor: black;
+#stage-items-container
+{
     .item-box {
-        background-color: aqua;
+
+        .item-bgnd {
+            border: 5px solid #000;
+            background-color:white;
+        }
 
         .shape-button {
             @include box-sizing(box);
@@ -9,8 +17,8 @@
             height: 26px;
 
             &.shape-rotate-btn {
-                top: 0;
-                left: 0;
+                top: -$btnPosition;
+                left: -$btnPosition;
                 cursor: grab;
                 cursor: -moz-grab;
                 cursor: -webkit-grab;
@@ -28,12 +36,14 @@
                     position: absolute;
                     /* display: inline-block; */
                     top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
                 }
             }
 
             &.shape-drag-btn {
-                bottom: 0;
-                left: 0;
+                bottom: -$btnPosition;
+                left: -$btnPosition;
                 cursor: move;
 
                 .shape-drag-inv-btn {
@@ -49,12 +59,14 @@
                     position: absolute;
                     /* display: inline-block; */
                     top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
                 }
             }
 
             &.shape-delete-btn {
-                top: 0;
-                right: 0;
+                top: -$btnPosition;
+                right: -$btnPosition;
                 cursor: pointer;
 
                 .shape-delete-inv-btn {
@@ -70,21 +82,23 @@
                     position: absolute;
                     /* display: inline-block; */
                     top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
                 }
             }
 
             &.shape-resize-btn {
-                bottom: 0;
-                right: 0;
+                bottom: $btnPosition;
+                right: $btnPosition;
                 cursor: nw-resize;
-                display:none;
+                display: none;
 
                 .shape-resize-inv-btn {
                     /* position: relative; */
                     width: 26px;
                     height: 26px;
                     /*background-color: red;*/
-                    z-index:9;
+                    z-index: 9;
                     @include border-radius(50% 50%);
                     /* display: inline-block; */
                 }
@@ -93,7 +107,9 @@
                     position: absolute;
                     /* display: inline-block; */
                     top: 0;
-                    z-index:0
+                    z-index: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
                 }
             }
         }
