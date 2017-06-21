@@ -1,0 +1,14 @@
+﻿@model IEnumerable<FloorDesigner.Models.Floor>
+
+@foreach (FloorDesigner.Models.Floor floor in Model)
+{
+    <li id="@floor.Id" class="mdl-list__item mdl-list-item-fixed floor-list-item" data-width="@floor.Width" data-height="@floor.Height">
+        <div class="mdl-list__item-primary-content">
+            <div id="@floor.Id" class="floor-btn">@floor.Name</div>
+        </div>
+        @*<a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">delete</i></a>*@
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button-color-blue">
+            <i class="material-icons">delete</i>
+        </button>
+    </li>
+}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,19 +7,24 @@ using System.Web;
 
 namespace FloorDesigner.Models
 {
-    public class FloorLayout
+    public class Room
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required]
+        public string Shape { get; set; }
+        [Required]
         public int Width { get; set; }
+        [Required]
         public int Height { get; set; }
+        [Required]
         public int Xpos { get; set; }
+        [Required]
         public int Ypos { get; set; }
-        public string Image { get; set; }
-        public virtual ICollection FloorItems { get; set; }
+        [Required]
+        public int Rotation { get; set; }
+
         public int FloorId { get; set; }
-        [ForeignKey("FloorId ")]
-        public Floor Floor { get; set; }
+        public virtual Floor Floor { get; set; }
     }
 }

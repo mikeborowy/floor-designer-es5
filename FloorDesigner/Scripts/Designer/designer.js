@@ -4,7 +4,7 @@
         //GLOBAL VARS START
         //---stage---\\
         var floorCfg = {
-            floorId: 1,
+            id: 1,
             width: 8,
             height: 8
         }
@@ -54,11 +54,60 @@
 
         function initApp() {
 
-            stageInit();
+            initSearchPanel();
+
+            //stageInit();
             shapeListInit();
             RefreshSeatingPlanScreen();
             initDragNDrop();
         }
+
+        /**
+        * SEARCH PANEL START
+        */
+
+        function initSearchPanel() {
+
+            $('#floors-list').find('.floor-btn').each(function (i, val) {
+
+                var btn = $(val);
+                btn.click(onFloorBtnClick);
+
+            })
+
+            function onFloorBtnClick(evt) {
+
+                var selectedFloor = $(evt.target);
+                var action = "/api/floors";
+                var data = { floorId: selectedFloor.attr('id') };
+
+                $.ajax({
+                    type: "GET",
+                    url: action,
+                    data: data,
+                    cache: false,
+                    success: function (response) {
+
+                        console.log(response[0]);
+                        floorCfg = response[0];
+
+                        stageInit();
+                        RefreshSeatingPlanScreen();
+
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr, ajaxOptions, thrownError);
+                    }
+                });
+
+            }
+        }
+
+
+        /**
+        * SEARCH PANEL END
+        */
+
 
         /**
         * STAGE START

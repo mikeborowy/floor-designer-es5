@@ -1,0 +1,50 @@
+﻿ <group class="designer-toolbar-group">
+                <ul class="demo-list-two mdl-list">
+                    <li class="mdl-list__item mdl-list__item--two-line">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-avatar">business</i>
+                            <span>Office 1</span>
+                            <span class="mdl-list__item-sub-title">Malborska St. 51, Warsaw 03-234</span>
+                        </span>
+                        @*<span class="mdl-list__item-secondary-content">
+                                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-toolbar-button">
+                                    <i class="material-icons">add</i>
+                                    Floor
+                                </button>
+                            </span>*@
+                    </li>
+                    <li class="mdl-list__item mdl-list__item--two-line">
+                        <div class="mdl-list__item-primary-content">
+                            <form id="floor-create-form">
+                                <span>Floor:</span>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input floor-textfield" type="text" id="floor-num">
+                                    <label class="mdl-textfield__label floor-textfield" for="floor-num">Number</label>
+                                </div>
+                                <span>Width:</span>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input floor-textfield" type="text" id="floor-width">
+                                    <label class="mdl-textfield__label floor-textfield" for="floor-width">Meters</label>
+                                </div>
+                                <span>Height:</span>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input floor-textfield" type="text" id="floor-height">
+                                    <label class="mdl-textfield__label floor-textfield" for="floor-height">Meters</label>
+                                </div>
+                            </form>
+                        </div>
+                        <span class="mdl-list__item-secondary-content">
+                            <button id="add-floor-btn" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-toolbar-button">
+                                <i class="material-icons">add</i>
+                                Floor
+                            </button>
+                        </span>
+                    </li>
+
+                </ul>
+
+                <ul id="floors-list" class="demo-list-action mdl-list">
+                    @Html.Action("GetFloorsList", "Designer")
+                </ul>
+
+            </group>

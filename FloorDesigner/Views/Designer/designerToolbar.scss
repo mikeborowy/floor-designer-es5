@@ -83,9 +83,9 @@ $color: rgb(0,0,0);
 
         .mdl-textfield__label {
             color: rgb(68,138,255);
-            
-            &:after{
-                background-color:$colorBlue;
+
+            &:after {
+                background-color: $colorBlue;
             }
         }
     }
@@ -202,11 +202,29 @@ $color: rgb(0,0,0);
         font-size: 12px;
         color: rgb(68,138,255);
 
-        &:after{
-            background-color:$colorBlue
+        &:after {
+            background-color: $colorBlue;
         }
     }
 }
+
+.mdl-list__item-primary-content {
+    .floor-btn {
+        cursor: pointer;
+
+        &:hover {
+            color: $colorBlue;
+        }
+    }
+}
+
+.floor-list-item {
+}
+
+#floors-list {
+}
+
+
 
 .mdl-list-item-fixed {
     margin-left: 0px;
