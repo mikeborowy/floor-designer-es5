@@ -574,10 +574,19 @@
 
                 var draggedItem = btn.parent().parent();
 
-                draggedItem.attr('data-box-r', currentDraggable[0].rotation);
-
                 if (currentDraggable != null) {
-                    
+
+                    currentDraggable[0].rotation = Math.round(currentDraggable[0].rotation / 90) * 90;
+
+                    if (currentDraggable[0].rotation <= -360) {
+                        draggedItem.attr('data-box-r', currentDraggable[0].rotation + 360);
+                    }
+                    else if (_draggableCurrent[0].rotation >= 360) {
+                        draggedItem.attr('data-box-r', currentDraggable[0].rotation - 360);
+                    }
+                    else {
+                        draggedItem.attr('data-box-r', currentDraggable[0].rotation);
+                    }
                     //currentDraggable[0].kill();
                    // currentDraggable[0].disable();
 
@@ -620,6 +629,8 @@
                         edgeResistance: 0.65,
                         type: actionType,
                         throwProps: _throwProp,
+                        //throwResistance: 0,
+                        maxDuration: 0.1,
                         liveSnap: _liveSnap,
                         snap: {
 
@@ -653,13 +664,6 @@
                         type: "rotation",
                         throwProps: _throwProp,
                         snap: function (endValue) {
-
-                            /*this function gets called when the mouse/finger is released and
-                            it plots where rotation should normally end and we can alter that
-                            value and return a new one instead. This gives us an easy way to
-                            apply custom snapping behavior with any logic we want. In this case,
-                            just make sure the end value snaps to 90-degree increments but only
-                            when the "snap" checkbox is selected.*/
                             return Math.round(endValue / _rotationSnap) * _rotationSnap;
                         },
                         //onPress: function (evt) {
