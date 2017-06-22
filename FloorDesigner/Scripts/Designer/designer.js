@@ -79,6 +79,8 @@
             $('#floors-list').find('.floor-btn').each(function (i, val) {
 
                 var btn = $(val);
+                btn.css({ 'cursor': 'pointer' });
+
                 btn.click(onFloorBtnClick);
 
             })
@@ -131,6 +133,9 @@
 
             $('#stage-items-container').width(floorCfg.width * gridCellWidth);
             $('#stage-items-container').height(floorCfg.height * gridCellHeight);
+
+            $('#stage-bgnd').width(floorCfg.width * gridCellWidth);
+            $('#stage-bgnd').height(floorCfg.height * gridCellHeight);
 
             createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
 
