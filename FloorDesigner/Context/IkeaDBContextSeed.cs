@@ -28,7 +28,7 @@ namespace FloorDesigner.Context
                         
                     },
                      new Room(){
-                        Shape = "shape-room-l-3x3",
+                        Shape = "room-l-3x3",
                         Width = 3,
                         Height = 3,
                         Xpos = 6,

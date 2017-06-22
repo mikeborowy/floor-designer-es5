@@ -24,11 +24,12 @@
             resize: "resize"
         }
         //---rooms---\\
-        var _shapeSizes = [
-            { "room-sqr-2x2": { w: 2, h: 2, t: { x: gridCellWidth, y: gridCellHeight } } },
-            { "room-sqr-3x3": { w: 3, h: 3, t: { x: (2 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
-            { "room-rct-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
-            { "room-l-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } }
+        var loadedItems;
+        var shapeSizes = [
+            { "shape-room-sqr-2x2": { w: 2, h: 2, t: { x: gridCellWidth, y: gridCellHeight } } },
+            { "shape-room-sqr-3x3": { w: 3, h: 3, t: { x: (2 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
+            { "shape-room-rct-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
+            { "shape-room-l-3x2": { w: 3, h: 3, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } }
         ];
         var itemBoderSize = 3;
         var paddingLeft = 0;
@@ -57,6 +58,7 @@
             initSearchPanel();
 
             //stageInit();
+            //createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
             shapeListInit();
             RefreshSeatingPlanScreen();
             initDragNDrop();
@@ -77,6 +79,8 @@
 
             function onFloorBtnClick(evt) {
 
+                loadedItems = [];
+
                 var selectedFloor = $(evt.target);
                 var action = "/api/floors";
                 var data = { floorId: selectedFloor.attr('id') };
@@ -88,12 +92,13 @@
                     cache: false,
                     success: function (response) {
 
-                        console.log(response[0]);
+                        clearStage();
+
                         floorCfg = response[0];
+                        loadedItems = floorCfg.rooms;
 
                         stageInit();
                         RefreshSeatingPlanScreen();
-
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         console.log(xhr, ajaxOptions, thrownError);
@@ -108,7 +113,58 @@
         * SEARCH PANEL END
         */
 
+        function loadRooms() {
 
+            if (loadedItems.length > 0) {
+                $.each(loadedItems, function (i, val) {
+
+                    TweenLite.delayedCall(0.1 * i, function () {
+
+                        var id = loadedItems[i].id;
+                        var shape = loadedItems[i].shape;
+                        var x = loadedItems[i].xpos * gridCellWidth;
+                        var y = loadedItems[i].ypos * gridCellHeight;
+                        var r = loadedItems[i].rotation;
+
+                        var shapeSizeTableObj = findValueByKey(shapeSizes, shape);
+
+                        draggedObj = {};
+                        draggedObj.id = id;
+                        draggedObj.sh = shape;
+                        draggedObj.x = x;
+                        draggedObj.y = y;
+                        draggedObj.r = r;
+                        draggedObj.w = shapeSizeTableObj.w;
+                        draggedObj.h = shapeSizeTableObj.h;
+                        draggedObj.tox = shapeSizeTableObj.t.x;
+                        draggedObj.toy = shapeSizeTableObj.t.y;
+
+                        var currentItem = createStageItem(
+                            draggedObj.id,
+                            draggedObj.x,
+                            draggedObj.y,
+                            draggedObj.r,
+                            draggedObj.tox,
+                            draggedObj.toy,
+                            draggedObj.w,
+                            draggedObj.h,
+                            draggedObj.sh);
+                    })
+                });
+            }
+        }
+
+        function findValueByKey(array, key) {
+
+            for (var i = 0; i < array.length; i++) {
+
+                if (array[i][key]) {
+
+                    return array[i][key];
+                }
+            }
+            return null;
+        }
         /**
         * STAGE START
         */
@@ -122,6 +178,7 @@
             $('#stage-items-container').height(floorCfg.height * gridCellHeight);
 
             createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
+
         }
 
         function createGrid(gridCellWidth, gridCellHeight, gridColumns, gridRows) {
@@ -163,9 +220,17 @@
                     })
                     .prependTo(_stageGridBgnd);
             }
+            loadRooms();
 
             //set the stage's size to match the grid, and ensure that the tableContainer widths/heights reflect the variables above
             //TweenLite.set(_stage, { height: gridRows * gridCellHeight + 1, width: gridColumns * gridCellWidth + 1 });
+        }
+
+        function clearStage() {
+
+            $('#stage-grid-bgnd').html('');
+            $('#stage-grid-live').html('');
+            $('#stage-items-container').html('');
         }
 
         /**
@@ -271,8 +336,8 @@
 
             detachGridCellEvents();
 
-            var _currentField = $(event.currentTarget);
-            _currentField.removeClass('board-highlight-over');
+            var currentField = $(event.currentTarget);
+            currentField.removeClass('board-highlight-over');
 
             if (evt.originalEvent.preventDefault) {
                 evt.originalEvent.preventDefault(); // stops the browser from redirecting.
@@ -286,7 +351,7 @@
                 });
 
             //get freshly created item container
-            var _currentItem = createStageItem(
+            var currentItem = createStageItem(
                 draggedObj.id,
                 draggedObj.x,
                 draggedObj.y,
@@ -297,9 +362,7 @@
                 draggedObj.h,
                 draggedObj.sh);
 
-
-
-            return _currentItem;
+            return currentItem;
         }
 
         function OnDragEnd(evt) {
@@ -358,6 +421,8 @@
        * CREATE STAGE ITEM START
        */
         function createStageItem(id, x, y, r, tox, toy, w, h, sh) {
+
+            console.log("createStageItem")
 
             var stageItemsContainer = $('#stage-items-container');
 
