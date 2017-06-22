@@ -52,6 +52,16 @@ namespace FloorDesigner.Controllers
                 return BadRequest();
             }
 
+
+            List<Room> rl = db.Rooms.Where(r => r.FloorId == floor.Id).ToList();
+
+            if(rl.Count > 0)
+            {
+                db.Rooms.RemoveRange(rl);
+            }
+
+            db.Rooms.AddRange(floor.Rooms);
+
             db.Entry(floor).State = EntityState.Modified;
 
             try
@@ -69,6 +79,15 @@ namespace FloorDesigner.Controllers
                     throw;
                 }
             }
+
+            //var dbf = db.Floors
+            //           .Include(x => x.Rooms)
+            //           .Single(c => c.Id == floor.Id);
+
+            //db.Entry(dbf).CurrentValues.SetValues(floor);
+            //db.Entry(dbf.Rooms).CurrentValues.SetValues(floor.Rooms);
+
+            //db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }

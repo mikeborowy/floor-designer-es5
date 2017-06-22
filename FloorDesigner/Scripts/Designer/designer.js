@@ -4,9 +4,15 @@
         //GLOBAL VARS START
         //---stage---\\
         var floorCfg = {
-            id: 1,
-            width: 8,
-            height: 8
+            id: 4,
+            officeId: 1,
+            name: "Floor 1",
+            width: 15,
+            height: 10,
+            xpos: 0,
+            ypos: 0,
+            image: null,
+            rooms: []
         }
 
         var gridCellWidth = 60;
@@ -64,9 +70,9 @@
             initDragNDrop();
         }
 
-        /**
-        * SEARCH PANEL START
-        */
+        /**************************
+         SEARCH PANEL START
+        ***************************/
 
         function initSearchPanel() {
 
@@ -83,7 +89,7 @@
 
                 var selectedFloor = $(evt.target);
                 var action = "/api/floors";
-                var data = { floorId: selectedFloor.attr('id') };
+                var data = { id: selectedFloor.attr('id') };
 
                 $.ajax({
                     type: "GET",
@@ -94,7 +100,7 @@
 
                         clearStage();
 
-                        floorCfg = response[0];
+                        floorCfg = response;
                         loadedItems = floorCfg.rooms;
 
                         stageInit();
@@ -109,65 +115,14 @@
         }
 
 
-        /**
-        * SEARCH PANEL END
-        */
+        /***********************
+        SEARCH PANEL END
+        ***********************/
 
-        function loadRooms() {
 
-            if (loadedItems.length > 0) {
-                $.each(loadedItems, function (i, val) {
-
-                    TweenLite.delayedCall(0.1 * i, function () {
-
-                        var id = loadedItems[i].id;
-                        var shape = loadedItems[i].shape;
-                        var x = loadedItems[i].xpos * gridCellWidth;
-                        var y = loadedItems[i].ypos * gridCellHeight;
-                        var r = loadedItems[i].rotation;
-
-                        var shapeSizeTableObj = findValueByKey(shapeSizes, shape);
-
-                        draggedObj = {};
-                        draggedObj.id = id;
-                        draggedObj.sh = shape;
-                        draggedObj.x = x;
-                        draggedObj.y = y;
-                        draggedObj.r = r;
-                        draggedObj.w = shapeSizeTableObj.w;
-                        draggedObj.h = shapeSizeTableObj.h;
-                        draggedObj.tox = shapeSizeTableObj.t.x;
-                        draggedObj.toy = shapeSizeTableObj.t.y;
-
-                        var currentItem = createStageItem(
-                            draggedObj.id,
-                            draggedObj.x,
-                            draggedObj.y,
-                            draggedObj.r,
-                            draggedObj.tox,
-                            draggedObj.toy,
-                            draggedObj.w,
-                            draggedObj.h,
-                            draggedObj.sh);
-                    })
-                });
-            }
-        }
-
-        function findValueByKey(array, key) {
-
-            for (var i = 0; i < array.length; i++) {
-
-                if (array[i][key]) {
-
-                    return array[i][key];
-                }
-            }
-            return null;
-        }
-        /**
-        * STAGE START
-        */
+        /***************************
+         STAGE START
+        ***************************/
 
         function stageInit() {
 
@@ -220,10 +175,52 @@
                     })
                     .prependTo(_stageGridBgnd);
             }
-            loadRooms();
+
+            loadItems();
 
             //set the stage's size to match the grid, and ensure that the tableContainer widths/heights reflect the variables above
             //TweenLite.set(_stage, { height: gridRows * gridCellHeight + 1, width: gridColumns * gridCellWidth + 1 });
+        }
+
+        function loadItems() {
+
+            if (loadedItems.length > 0) {
+                $.each(loadedItems, function (i, val) {
+
+                    TweenLite.delayedCall(0.1 * i, function () {
+
+                        var id = loadedItems[i].id;
+                        var shape = loadedItems[i].shape;
+                        var x = loadedItems[i].xpos * gridCellWidth;
+                        var y = loadedItems[i].ypos * gridCellHeight;
+                        var r = loadedItems[i].rotation;
+
+                        var shapeSizeTableObj = findValueByKey(shapeSizes, shape);
+
+                        draggedObj = {};
+                        draggedObj.id = id;
+                        draggedObj.sh = shape;
+                        draggedObj.x = x;
+                        draggedObj.y = y;
+                        draggedObj.r = r;
+                        draggedObj.w = shapeSizeTableObj.w;
+                        draggedObj.h = shapeSizeTableObj.h;
+                        draggedObj.tox = shapeSizeTableObj.t.x;
+                        draggedObj.toy = shapeSizeTableObj.t.y;
+
+                        var currentItem = createStageItem(
+                            draggedObj.id,
+                            draggedObj.x,
+                            draggedObj.y,
+                            draggedObj.r,
+                            draggedObj.tox,
+                            draggedObj.toy,
+                            draggedObj.w,
+                            draggedObj.h,
+                            draggedObj.sh);
+                    })
+                });
+            }
         }
 
         function clearStage() {
@@ -233,9 +230,32 @@
             $('#stage-items-container').html('');
         }
 
+        function findValueByKey(array, key) {
+
+            for (var i = 0; i < array.length; i++) {
+
+                if (array[i][key]) {
+
+                    return array[i][key];
+                }
+            }
+            return null;
+        }
+
         /**
-        * STAGE END
+        * CREATE DRAGGABLE STAGE START
         */
+        var draggableObj = Draggable.create($("#stage-container"), {
+            type: "scroll",
+            edgeResistance: 1,
+            throwProps: true,
+            lockAxis: true
+        });
+        Draggable.get("#stage-container").disable();
+        /**
+        * CREATE DRAGGABLE STAGE END
+        */
+
 
         /**
        * DRAG DROP START
@@ -417,12 +437,19 @@
        * DRAG DROP END
        */
 
+
+        /*************************
+         STAGE END
+        *************************/
+
+        /*************************
+         STAGE ITEM START
+        *************************/
+
         /**
        * CREATE STAGE ITEM START
        */
         function createStageItem(id, x, y, r, tox, toy, w, h, sh) {
-
-            console.log("createStageItem")
 
             var stageItemsContainer = $('#stage-items-container');
 
@@ -485,7 +512,8 @@
             var newOriginY = (item.data('box-h') * gridCellHeight) * 0.5;
             TweenLite.set(item, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
 
-            TweenMax.set(item, { rotation: r });
+            TweenLite.set(item, { rotation: r });
+            TweenLite.set(item.find('.shape-button'), { rotation: (360 - r) });
 
             //TweenMax.set($('.sp-shape-rotate-ico'), { rotation: (360 - r) });
             //TweenMax.set($('.sp-shape-drag-ico'), { rotation: (360 - r) });
@@ -641,7 +669,6 @@
             prevItem = selectedItem
             console.log(prevItem)
         }
-
 
 
         /*
@@ -930,10 +957,13 @@
         * CREATE DRAGGABLE STAGE ITEM END
         */
 
+        /*************************
+         STAGE ITEM END
+        *************************/
 
-        /**
-        * SHAPES PANEL START
-        */
+        /***************************
+         SHAPES PANEL START
+        **********************/
         function shapeListInit() {
 
             var shapeListBtnConfig = {
@@ -994,22 +1024,74 @@
                 });
             }
         }
-        /**
-        * SHAPES PANEL END
-        */
+        /*************************
+         SHAPES PANEL END
+        *****************************/
 
-        /**
-         * CREATE DRAGGABLE STAGE START
-         */
-        var draggableObj = Draggable.create($("#stage-container"), {
-            type: "scroll",
-            edgeResistance: 1,
-            throwProps: true,
-            lockAxis: true
-        });
-        Draggable.get("#stage-container").disable();
-        /**
-        * CREATE DRAGGABLE STAGE END
+        /************************
+            TOOLBAR START
+        *************************/
+
+        /*
+        SAVE START
+       */
+        $('#save-floor-btn').click(onSaveFloorClick);
+
+        function onSaveFloorClick() {
+
+            var rooms = [];
+
+            $('.item-box').each(function (i, val) {
+
+                var itemBox = $(val);
+
+                var room = {
+                    shape: itemBox.data('box-shape'),
+                    width: itemBox.data('box-w'),
+                    height: itemBox.data('box-h'),
+                    xpos: itemBox.data('box-x') / gridCellWidth,
+                    ypos: itemBox.data('box-y') / gridCellHeight,
+                    rotation: itemBox.data('box-r'),
+                    floorId: floorCfg.id
+                };
+
+                rooms.push(room);
+            });
+
+            var floor = {
+                id: floorCfg.id,
+                officeId: floorCfg.officeId,
+                name: floorCfg.name,
+                width: floorCfg.width,
+                height: floorCfg.height,
+                xpos: floorCfg.xpos,
+                ypos: floorCfg.ypos,
+                image: null,
+                rooms:rooms
+            }
+
+            var action = "/api/floors/" + floorCfg.id;
+            var data = JSON.stringify(floor);
+
+            $.ajax({
+                contentType: "application/json",
+                dataType: 'json',
+                type: "PUT",
+                url: action,
+                data: data,
+                cache: false,
+                success: function (response) {
+
+                    console.log(response);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr, ajaxOptions, thrownError);
+                }
+            });
+        }
+
+        /*
+         SAVE END
         */
 
         /**
@@ -1207,6 +1289,11 @@
         /**
           * ON KEY UP/DOWN END
           */
+
+
+        /************************
+             TOOLBAR END
+         *************************/
 
         function RefreshSeatingPlanScreen() {
             UpdateProps();
