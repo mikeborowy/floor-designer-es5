@@ -494,11 +494,6 @@
                 }).
                 appendTo(stageItemsContainer);
 
-            //if (_item.width() > _item.height()) {
-            //    _newOriginX = (_item.data('box-w') * gridCellWidth) - (gridCellWidth * 0.5);
-            //    _newOriginY = (_item.data('box-h') * gridCellHeight) - (gridCellHeight * 0.5);
-            //}
-
             if (item.data('box-shape') === "shape-room-l-3x2") {
                 createLShapeRoom()
                     .appendTo(item);
@@ -510,14 +505,16 @@
 
             var newOriginX = (item.data('box-w') * gridCellWidth) * 0.5;
             var newOriginY = (item.data('box-h') * gridCellHeight) * 0.5;
+
+            if (item.width() > item.height()) {
+                newOriginX = (item.data('box-w') * gridCellWidth) - (gridCellWidth * 0.5);
+                newOriginY = (item.data('box-h') * gridCellHeight) - (gridCellHeight * 0.5);
+            }
+
             TweenLite.set(item, { transformOrigin: "" + newOriginX + "px " + newOriginY + "px" });
 
             TweenLite.set(item, { rotation: r });
             TweenLite.set(item.find('.shape-button'), { rotation: (360 - r) });
-
-            //TweenMax.set($('.sp-shape-rotate-ico'), { rotation: (360 - r) });
-            //TweenMax.set($('.sp-shape-drag-ico'), { rotation: (360 - r) });
-            //TweenMax.set($('.sp-shape-delete-ico'), { rotation: (360 - r) });
 
             item.attr('data-box-tox', newOriginX);
             item.attr('data-box-toy', newOriginY);
@@ -533,10 +530,6 @@
             });
 
             TweenLite.to(item, 0, { x: x, y: y });
-
-            //if (getUrlParameter('action') == "edit") {
-            //    turnOff(currentTableNum++);
-            //}
 
             return item;
         }
