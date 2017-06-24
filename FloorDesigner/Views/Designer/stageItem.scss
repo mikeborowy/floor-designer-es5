@@ -62,130 +62,128 @@ $selectedBorderColor: $colorBlue;
                     background-color: white;
                 }
             }
+        }
 
+        .shape-button {
+            @include box-sizing(box);
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            z-index: 30;
 
+            &.shape-rotate-btn {
+                top: -$btnPosition;
+                left: -$btnPosition;
+                cursor: grab;
+                cursor: -moz-grab;
+                cursor: -webkit-grab;
 
-            .shape-button {
-                @include box-sizing(box);
-                position: absolute;
-                width: 26px;
-                height: 26px;
-                z-index: 30;
-
-                &.shape-rotate-btn {
-                    top: -$btnPosition;
-                    left: -$btnPosition;
-                    cursor: grab;
-                    cursor: -moz-grab;
-                    cursor: -webkit-grab;
-
-                    .shape-rotate-inv-btn {
-                        /* position: relative; */
-                        width: 26px;
-                        height: 26px;
-                        /*background-color: red;*/
-                        @include border-radius(50% 50%);
-                        /* display: inline-block; */
-                    }
-
-                    .shape-rotate-inv-icon {
-                        position: absolute;
-                        /* display: inline-block; */
-                        top: 0;
-                        color: $iconColor;
-                        background-color: $iconBgndColor;
-                        @include border-radius(50% );
-
-                        &:hover {
-                            background-color: $hoverBgndColor;
-                        }
-                    }
+                .shape-rotate-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
                 }
 
-                &.shape-drag-btn {
-                    bottom: -$btnPosition;
-                    left: -$btnPosition;
-                    cursor: move;
+                .shape-rotate-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
+                    @include border-radius(50% );
 
-                    .shape-drag-inv-btn {
-                        /* position: relative; */
-                        width: 26px;
-                        height: 26px;
-                        /*background-color: red;*/
-                        @include border-radius(50% 50%);
-                        /* display: inline-block; */
-                    }
-
-                    .shape-drag-inv-icon {
-                        position: absolute;
-                        /* display: inline-block; */
-                        top: 0;
-                        color: $iconColor;
-                        background-color: $iconBgndColor;
-                        @include border-radius(50% );
-
-                        &:hover {
-                            background-color: $hoverBgndColor;
-                        }
+                    &:hover {
+                        background-color: $hoverBgndColor;
                     }
                 }
+            }
 
-                &.shape-delete-btn {
-                    top: -$btnPosition;
-                    right: -$btnPosition;
-                    cursor: pointer;
+            &.shape-drag-btn {
+                bottom: -$btnPosition;
+                left: -$btnPosition;
+                cursor: move;
 
-                    .shape-delete-inv-btn {
-                        /* position: relative; */
-                        width: 26px;
-                        height: 26px;
-                        /*background-color: red;*/
-                        @include border-radius(50% 50%);
-                        /* display: inline-block; */
-                    }
-
-                    .shape-delete-inv-icon {
-                        position: absolute;
-                        /* display: inline-block; */
-                        top: 0;
-                        color: $iconColor;
-                        background-color: $iconBgndColor;
-                        @include border-radius(50% );
-
-                        &:hover {
-                            background-color: red;
-                        }
-                    }
+                .shape-drag-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
                 }
 
-                &.shape-resize-btn {
-                    bottom: $btnPosition;
-                    right: $btnPosition;
-                    cursor: nw-resize;
-                    display: none;
+                .shape-drag-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
+                    @include border-radius(50% );
 
-                    .shape-resize-inv-btn {
-                        /* position: relative; */
-                        width: 26px;
-                        height: 26px;
-                        /*background-color: red;*/
-                        z-index: 9;
-                        @include border-radius(50% 50%);
-                        /* display: inline-block; */
+                    &:hover {
+                        background-color: $hoverBgndColor;
                     }
+                }
+            }
 
-                    .shape-resize-inv-icon {
-                        position: absolute;
-                        /* display: inline-block; */
-                        top: 0;
-                        z-index: 0;
-                        color: $iconColor;
-                        background-color: $iconBgndColor;
-                        @include border-radius(50% );
+            &.shape-delete-btn {
+                top: -$btnPosition;
+                right: -$btnPosition;
+                cursor: pointer;
 
-                        &:hover {
-                            background-color: $hoverBgndColor;
-                        }
+                .shape-delete-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-delete-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
+                    @include border-radius(50%);
+
+                    &:hover {
+                        background-color: red;
+                    }
+                }
+            }
+
+            &.shape-resize-btn {
+                bottom: $btnPosition;
+                right: $btnPosition;
+                cursor: nw-resize;
+                display: none;
+
+                .shape-resize-inv-btn {
+                    /* position: relative; */
+                    width: 26px;
+                    height: 26px;
+                    /*background-color: red;*/
+                    z-index: 9;
+                    @include border-radius(50% 50%);
+                    /* display: inline-block; */
+                }
+
+                .shape-resize-inv-icon {
+                    position: absolute;
+                    /* display: inline-block; */
+                    top: 0;
+                    z-index: 0;
+                    color: $iconColor;
+                    background-color: $iconBgndColor;
+                    @include border-radius(50% );
+
+                    &:hover {
+                        background-color: $hoverBgndColor;
                     }
                 }
             }
@@ -195,3 +193,4 @@ $selectedBorderColor: $colorBlue;
             visibility: visible
         }
     }
+}

@@ -11,7 +11,7 @@
     margin-left: 375px;
 
     #stage {
-        width: 620px;
+        /*width: 620px;*/
         /*height: 600px;*/
         /*margin: auto;*/
         /*top: 0;
@@ -48,7 +48,10 @@
             }
         }
 
-        #stage-items-container{
+        #stage-items-container {
+            /*position: absolute !important;*/
+            /*top: 0;
+            left: 0;*/
             /*background-color:aqua;*/
         }
     }

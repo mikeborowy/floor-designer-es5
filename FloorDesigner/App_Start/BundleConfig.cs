@@ -54,9 +54,14 @@ namespace FloorDesigner
            "~/Scripts/gsap/plugins/TEMPLATE_Plugin.js"
           ));
 
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+     "~/Scripts/Common/roomsCfg.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/designer").Include(
          "~/Scripts/Designer/designer.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/finder").Include(
+     "~/Scripts/Finder/finder.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function (roomsCfg) {
     $(document).ready(function () {
 
         //GLOBAL VARS START
@@ -14,9 +14,8 @@
             image: null,
             rooms: []
         }
-
-        var gridCellWidth = 60;
-        var gridCellHeight = 60;
+        
+     
         //---drag-n-drop---\\
         var currentAction;
         var gridPos;
@@ -30,13 +29,13 @@
             resize: "resize"
         }
         //---rooms---\\
+        //common.gridCellWidth = 60;
+        //common.gridCellHeight = 60;
+        var gridCellWidth = roomsCfg.CELL_WIDTH;
+        var gridCellHeight = roomsCfg.CELL_HEIGHT;
+        var shapeSizes = roomsCfg.SHAPES_SIZES;
+
         var loadedItems;
-        var shapeSizes = [
-            { "shape-room-sqr-2x2": { w: 2, h: 2, t: { x: gridCellWidth, y: gridCellHeight } } },
-            { "shape-room-sqr-3x3": { w: 3, h: 3, t: { x: (2 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
-            { "shape-room-rct-3x2": { w: 3, h: 2, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } },
-            { "shape-room-l-3x2": { w: 3, h: 3, t: { x: (3 * gridCellWidth) - (gridCellWidth * 0.5), y: (2 * gridCellHeight) - (gridCellHeight * 0.5) } } }
-        ];
         var itemBoderSize = 3;
         var paddingLeft = 0;
         var paddingTop = 0;
@@ -1336,4 +1335,4 @@
             //}
         }
     });
-})()
+})(roomsCfg)

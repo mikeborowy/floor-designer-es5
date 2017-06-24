@@ -161,6 +161,7 @@
     <Compile Include="Context\IkeaDBContextSeed.cs" />
     <Compile Include="Controllers\DesignerController.cs" />
     <Compile Include="Controllers\FloorsController.cs" />
+    <Compile Include="Controllers\RoomFinderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,8 +181,10 @@
     <Content Include="Images\shapes\room_squa_2x2.png" />
     <Content Include="Images\shapes\room_rect_3x2.png" />
     <Content Include="Images\shapes\room_squa_3x3.png" />
+    <Content Include="Scripts\Common\roomsCfg.js" />
     <Content Include="Scripts\Designer\designer.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\Finder\finder.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\material.js" />
@@ -230,6 +233,7 @@
     <Content Include="Views\Designer\stageItem.scss" />
     <Content Include="Views\Designer\searchPanelFloorsList.cshtml" />
     <Content Include="Views\Designer\searchPanel.cshtml" />
+    <Content Include="Views\RoomFinder\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
