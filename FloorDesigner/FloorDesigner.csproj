@@ -234,6 +234,12 @@
     <Content Include="Views\Designer\searchPanelFloorsList.cshtml" />
     <Content Include="Views\Designer\searchPanel.cshtml" />
     <Content Include="Views\RoomFinder\Index.cshtml" />
+    <Content Include="Views\RoomFinder\finderToolbar.cshtml" />
+    <Content Include="Views\RoomFinder\finderSearchPanel.cshtml" />
+    <Content Include="Views\RoomFinder\finderStage.cshtml" />
+    <Content Include="Views\RoomFinder\finderToolbar.scss" />
+    <Content Include="Views\RoomFinder\finderSearchPanel.scss" />
+    <Content Include="Views\RoomFinder\index.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

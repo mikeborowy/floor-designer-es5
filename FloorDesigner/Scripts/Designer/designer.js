@@ -14,8 +14,8 @@
             image: null,
             rooms: []
         }
-        
-     
+
+
         //---drag-n-drop---\\
         var currentAction;
         var gridPos;
@@ -29,8 +29,6 @@
             resize: "resize"
         }
         //---rooms---\\
-        //common.gridCellWidth = 60;
-        //common.gridCellHeight = 60;
         var gridCellWidth = roomsCfg.CELL_WIDTH;
         var gridCellHeight = roomsCfg.CELL_HEIGHT;
         var shapeSizes = roomsCfg.SHAPES_SIZES;
@@ -46,27 +44,71 @@
         var stageScaleNumMax = 2;
         //GLOBAL VARS END
 
-        $(window).resize(function () {
-            RefreshSeatingPlanScreen();
-        });
-
-        $(window).click(function (evt) {
-            //console.log(evt.target.id);
-            console.log(evt.target.className);
-            console.log($(evt.currentTarget));
-        });
-
         initApp();
 
         function initApp() {
 
+            $(window).resize(function () {
+                RefreshSeatingPlanScreen();
+            });
+
+            $(window).click(function (evt) {
+                //console.log(evt.target.id);
+                console.log(evt.target.className);
+                console.log($(evt.currentTarget));
+            });
+
             initSearchPanel();
+            initToolbar();
 
             //stageInit();
             //createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
             shapeListInit();
             RefreshSeatingPlanScreen();
             initDragNDrop();
+
+            /**
+           * CREATE DRAGGABLE STAGE START
+           */
+            var draggableObj = Draggable.create($("#stage-container"), {
+                type: "scroll",
+                edgeResistance: 1,
+                throwProps: true,
+                lockAxis: true
+            });
+
+            Draggable.get("#stage-container").disable();
+
+            $('#stage-container').bind('wheel mousewheel', function (evt) {
+
+                if (zoomMouse) {
+                    var delta;
+
+                    if (evt.originalEvent.wheelDelta !== undefined)
+                        delta = evt.originalEvent.wheelDelta;
+                    else
+                        delta = evt.originalEvent.deltaY * -1;
+
+                    if (delta > 0) {
+                        stageScaleNum += 0.1;
+                    }
+                    else {
+                        stageScaleNum -= 0.1;
+                    }
+
+                    ZoomStage();
+
+                    document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
+                    //$("#zoom-slider").get(0).MaterialTextfield.change((stageScaleNum - 1) * 10);
+                }
+            });
+
+            $(document).on('keydown', OnKeyDown);
+            $(document).on('keyup', OnKeyUp);
+
+            /**
+            * CREATE DRAGGABLE STAGE END
+            */
         }
 
         /**************************
@@ -245,21 +287,6 @@
             }
             return null;
         }
-
-        /**
-        * CREATE DRAGGABLE STAGE START
-        */
-        var draggableObj = Draggable.create($("#stage-container"), {
-            type: "scroll",
-            edgeResistance: 1,
-            throwProps: true,
-            lockAxis: true
-        });
-        Draggable.get("#stage-container").disable();
-        /**
-        * CREATE DRAGGABLE STAGE END
-        */
-
 
         /**
        * DRAG DROP START
@@ -1028,127 +1055,110 @@
         /************************
             TOOLBAR START
         *************************/
+        function initToolbar() {
+            /*MOUSE WHEEL*/
 
-        /*
-        SAVE START
-       */
-        $('#save-floor-btn').click(onSaveFloorClick);
+            /*SLIDER*/
+            $('#zoom-slider').on('input', function () {
 
-        function onSaveFloorClick() {
-
-            var rooms = [];
-
-            $('.item-box').each(function (i, val) {
-
-                var itemBox = $(val);
-
-                var room = {
-                    shape: itemBox.data('box-shape'),
-                    width: itemBox.data('box-w'),
-                    height: itemBox.data('box-h'),
-                    xpos: itemBox.data('box-x') / gridCellWidth,
-                    ypos: itemBox.data('box-y') / gridCellHeight,
-                    rotation: itemBox.data('box-r'),
-                    floorId: floorCfg.id
-                };
-
-                rooms.push(room);
+                stageScaleNum = (this.value * 0.1) + 1;
+                ZoomStage();
             });
+            /*ZOOM IN BTN*/
+            $('#zoom-in-floor-btn').click(function () {
 
-            var floor = {
-                id: floorCfg.id,
-                officeId: floorCfg.officeId,
-                name: floorCfg.name,
-                width: floorCfg.width,
-                height: floorCfg.height,
-                xpos: floorCfg.xpos,
-                ypos: floorCfg.ypos,
-                image: null,
-                rooms:rooms
-            }
-
-            var action = "/api/floors/" + floorCfg.id;
-            var data = JSON.stringify(floor);
-
-            $.ajax({
-                contentType: "application/json",
-                dataType: 'json',
-                type: "PUT",
-                url: action,
-                data: data,
-                cache: false,
-                success: function (response) {
-
-                    console.log(response);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    console.log(xhr, ajaxOptions, thrownError);
-                }
-            });
-        }
-
-        /*
-         SAVE END
-        */
-
-        /**
-        * ZOOM START
-        */
-        /*MOUSE WHEEL*/
-        $('#stage-container').bind('wheel mousewheel', function (evt) {
-
-            if (zoomMouse) {
-                var delta;
-
-                if (evt.originalEvent.wheelDelta !== undefined)
-                    delta = evt.originalEvent.wheelDelta;
-                else
-                    delta = evt.originalEvent.deltaY * -1;
-
-                if (delta > 0) {
-                    stageScaleNum += 0.1;
-                }
-                else {
-                    stageScaleNum -= 0.1;
-                }
+                stageScaleNum += 0.1;
 
                 ZoomStage();
-
                 document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
-                //$("#zoom-slider").get(0).MaterialTextfield.change((stageScaleNum - 1) * 10);
+            })
+            /*ZOOM OUT BTN*/
+            $('#zoom-out-floor-btn').click(function () {
+
+                stageScaleNum -= 0.1;
+
+                ZoomStage();
+                document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
+            })
+            /*ZOOM RESET BTN*/
+            $('#zoom-reset-floor-btn').click(function () {
+
+                stageScaleNum = 1;
+
+                ZoomStage();
+                document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
+            });
+
+            /*SAVE START*/
+            $('#save-floor-btn').click(onSaveFloorClick);
+            function onSaveFloorClick() {
+
+                var rooms = [];
+
+                $('.item-box').each(function (i, val) {
+
+                    var itemBox = $(val);
+
+                    var room = {
+                        shape: itemBox.data('box-shape'),
+                        width: itemBox.data('box-w'),
+                        height: itemBox.data('box-h'),
+                        xpos: itemBox.data('box-x') / gridCellWidth,
+                        ypos: itemBox.data('box-y') / gridCellHeight,
+                        rotation: itemBox.data('box-r'),
+                        floorId: floorCfg.id
+                    };
+
+                    rooms.push(room);
+                });
+
+                var floor = {
+                    id: floorCfg.id,
+                    officeId: floorCfg.officeId,
+                    name: floorCfg.name,
+                    width: floorCfg.width,
+                    height: floorCfg.height,
+                    xpos: floorCfg.xpos,
+                    ypos: floorCfg.ypos,
+                    image: null,
+                    rooms: rooms
+                }
+
+                var action = "/api/floors/" + floorCfg.id;
+                var data = JSON.stringify(floor);
+
+                $.ajax({
+                    contentType: "application/json",
+                    dataType: 'json',
+                    type: "PUT",
+                    url: action,
+                    data: data,
+                    cache: false,
+                    success: function (response) {
+
+                        console.log(response);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr, ajaxOptions, thrownError);
+                    }
+                });
             }
-        });
-        /*SLIDER*/
-        $('#zoom-slider').on('input', function () {
+            /*SAVE END*/
 
-            stageScaleNum = (this.value * 0.1) + 1;
-            ZoomStage();
-        });
-        /*ZOOM IN BTN*/
-        $('#zoom-in-floor-btn').click(function () {
+            /*SAVE START*/
+            $('#floor-finder-btn').click(onFloorFinderClick);
+            function onFloorFinderClick() {
+                var url = $(this).data('url');
+                window.location.href = url;
+            }
+            /*SAVE END*/
 
-            stageScaleNum += 0.1;
+        }
+         /************************
+             TOOLBAR END
+         *************************/
 
-            ZoomStage();
-            document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
-        })
-        /*ZOOM OUT BTN*/
-        $('#zoom-out-floor-btn').click(function () {
-
-            stageScaleNum -= 0.1;
-
-            ZoomStage();
-            document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
-        })
-        /*ZOOM RESET BTN*/
-        $('#zoom-reset-floor-btn').click(function () {
-
-            stageScaleNum = 1;
-
-            ZoomStage();
-            document.querySelector('#zoom-slider').MaterialSlider.change((stageScaleNum - 1) * 10);
-        });
-        /*ZOOM ZOOM*/
+        /*ZOOM START*/
         function ZoomStage() {
 
             var stage = $('#stage');
@@ -1226,15 +1236,9 @@
                 });
             }
         }
-        /**
-         * ZOOM END
-         */
+        /*ZOOM END*/
 
-        /**
-          * ON KEY UP/DOWN START
-          */
-
-        $(document).on('keydown', OnKeyDown);
+        /*ON KEY UP/DOWN START*/
         function OnKeyDown(evt) {
 
             var stageContainer = $("#stage-container");
@@ -1259,7 +1263,6 @@
             }
         }
 
-        $(document).on('keyup', OnKeyUp);
         function OnKeyUp(evt) {
 
             var stageContainer = $("#stage-container");
@@ -1282,16 +1285,8 @@
 
             }
         }
-
-        /**
-          * ON KEY UP/DOWN END
-          */
-
-
-        /************************
-             TOOLBAR END
-         *************************/
-
+        /*ON KEY UP/DOWN END*/
+       
         function RefreshSeatingPlanScreen() {
             UpdateProps();
         }

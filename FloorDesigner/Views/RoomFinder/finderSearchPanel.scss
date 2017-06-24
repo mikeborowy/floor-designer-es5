@@ -1,0 +1,67 @@
+﻿$textFieldWidth: 325px;
+
+#finder-search-panel {
+    @include clearFix;
+    @include box-sizing(border-box);
+    position: absolute;
+    width: 375px;
+    /*height: 100%;*/
+    z-index: 3;
+    overflow-y: auto;
+    /*padding-left: 1em;*/
+    /*margin-top: 64px;*/
+    background-color: white;
+    border-right: solid 1px rgba(0,0,0,0.3);
+    @include box-shadow(2px, 0px, 2px, 0px, rgba(50, 50, 50, 0.3));
+
+    #finder-search-box {
+        @include clearFix;
+        @include box-sizing(border-box);
+
+        .finder-search-group {
+            position: absolute;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        #search-room-form {
+            position: absolute;
+            width: $textFieldWidth;
+
+            .search-room-form-group {
+                position: relative;
+                display: block;
+
+                #find-room-btn {
+                    width: 100%;
+                    text-transform: none;
+                }
+
+                .mdl-textfield {
+                    width: $textFieldWidth;
+                    font-size: 16px;
+
+                    .mdl-textfield__label {
+                        color: rgb(68,138,255);
+
+                        &:after {
+                            background-color: $colorBlue;
+                        }
+                    }
+                }
+
+                .mdl-textfield__input {
+                    width: $textFieldWidth;
+                }
+
+                .mdl-textfield__label {
+                    width: $textFieldWidth;
+                }
+            }
+        }
+
+        .mdl-list__item-primary-content {
+            margin-left: 15px;
+        }
+    }
+}
