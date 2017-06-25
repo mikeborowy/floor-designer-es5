@@ -1,7 +1,7 @@
 ﻿var debugCfg = (function () {
 
     var cfg = {}
-    cfg.DEBUG = true;
+    cfg.DEBUG = false;
     return cfg
 
 })(debugCfg || {});
