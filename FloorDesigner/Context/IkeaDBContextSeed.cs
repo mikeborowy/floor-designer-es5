@@ -15,8 +15,8 @@ namespace FloorDesigner.Context
             {
                 Name = "Floor 1",
                 OfficeId = 1,
-                Width = 8,
-                Height = 8,
+                Width = 12,
+                Height = 10,
                 Rooms = new List<Room>() {
                 //    new Room(){
                 //        Shape = "room-sqr-2x2",
@@ -37,72 +37,9 @@ namespace FloorDesigner.Context
 
                 //    }
                 }
-                
-            };
-
-            Floor f2 = new Floor()
-            {
-                Name = "Floor 2",
-                OfficeId = 1,
-                Width = 12,
-                Height = 10,
-                Rooms = new List<Room>()
-                {
-                    //    new Room(){
-                    //        Shape = "room-sqr-2x2",
-                    //        Width = 2,
-                    //        Height = 2,
-                    //        Xpos = 0,
-                    //        Ypos = 0,
-                    //        Rotation = 0
-
-                    //    },
-                    //     new Room(){
-                    //        Shape = "room-l-3x3",
-                    //        Width = 3,
-                    //        Height = 3,
-                    //        Xpos = 6,
-                    //        Ypos = 6,
-                    //        Rotation = 0
-
-                    //    }
-                    }
-
-                };
-
-            Floor f3 = new Floor()
-            {
-                Name = "Floor 3",
-                OfficeId = 1,
-                Width = 18,
-                Height = 12,
-                Rooms = new List<Room>()
-                {
-                    //    new Room(){
-                    //        Shape = "room-sqr-2x2",
-                    //        Width = 2,
-                    //        Height = 2,
-                    //        Xpos = 0,
-                    //        Ypos = 0,
-                    //        Rotation = 0
-
-                    //    },
-                    //     new Room(){
-                    //        Shape = "room-l-3x3",
-                    //        Width = 3,
-                    //        Height = 3,
-                    //        Xpos = 6,
-                    //        Ypos = 6,
-                    //        Rotation = 0
-
-                    //    }
-                }
-
             };
 
             context.Floors.Add(f1);
-            context.Floors.Add(f2);
-            context.Floors.Add(f3);
 
             base.Seed(context);
         }

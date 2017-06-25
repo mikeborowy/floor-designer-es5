@@ -55,17 +55,18 @@ namespace FloorDesigner
           ));
 
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
-     "~/Scripts/Common/roomsCfg.js"));
+                "~/Scripts/Common/debugCfg.js",
+                "~/Scripts/Common/roomsCfg.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/designer").Include(
-         "~/Scripts/Designer/designer.js"));
+                "~/Scripts/Designer/designer.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/finder").Include(
-     "~/Scripts/Finder/finder.js"));
+                "~/Scripts/Finder/finder.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                "~/Content/bootstrap.css",
+                "~/Content/Site.css"));
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿(function (roomsCfg) {
+﻿(function (roomsCfg, debugCfg) {
     $(document).ready(function () {
 
         //GLOBAL VARS START
+        var debugMode = debugCfg.DEBUG;
         //---stage---\\
         var floorCfg = {
             id: 4,
@@ -32,11 +33,11 @@
         var gridCellWidth = roomsCfg.CELL_WIDTH;
         var gridCellHeight = roomsCfg.CELL_HEIGHT;
         var shapeSizes = roomsCfg.SHAPES_SIZES;
+        var paddingLeft = roomsCfg.SHAPE_CFG.PADDING_LEFT;
+        var paddingTop = roomsCfg.SHAPE_CFG.PADDING_TOP;
+        var itemBorderSize = roomsCfg.SHAPE_CFG.BORDER_SIZE;
 
         var loadedItems;
-        var itemBoderSize = 3;
-        var paddingLeft = 0;
-        var paddingTop = 0;
         //---zoom---\\
         var zoomMouse = false;
         var stageScaleNum = 1;
@@ -53,9 +54,15 @@
             });
 
             $(window).click(function (evt) {
-                //console.log(evt.target.id);
-                console.log(evt.target.className);
-                console.log($(evt.currentTarget));
+
+                if (debugMode) {
+                    console.log(evt.target.id);
+                    console.log(evt.target.className);
+                    console.log($(evt.target));
+                    console.log($(evt.currentTarget));
+                }
+
+                onDeselectRoom(evt.target);
             });
 
             initSearchPanel();
@@ -150,7 +157,9 @@
                         RefreshSeatingPlanScreen();
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr, ajaxOptions, thrownError);
+                        if (debugMode) {
+                            console.log(xhr, ajaxOptions, thrownError);
+                        }
                     }
                 });
 
@@ -289,8 +298,8 @@
         }
 
         /**
-       * DRAG DROP START
-       */
+        * DRAG DROP START
+        */
 
         function initDragNDrop() {
 
@@ -306,7 +315,10 @@
 
         function OnMouseDown(evt) {
 
-            console.log('mouse down');
+            if (debugMode) {
+                console.log('mouse down');
+            }
+
             var _target = $(evt.currentTarget);
             _target.bind('dragstart', OnDragStart);
 
@@ -465,8 +477,8 @@
             })
         }
         /**
-       * DRAG DROP END
-       */
+        * DRAG DROP END
+        */
 
 
         /*************************
@@ -478,8 +490,8 @@
         *************************/
 
         /**
-       * CREATE STAGE ITEM START
-       */
+        * CREATE STAGE ITEM START
+        */
         function createStageItem(id, x, y, r, tox, toy, w, h, sh) {
 
             var stageItemsContainer = $('#stage-items-container');
@@ -625,7 +637,7 @@
             var top = itemBgnd.
                 find('.l-shape-top').
                 css({
-                    width: w / draggedObj.w + itemBoderSize,
+                    width: w / draggedObj.w + (itemBorderSize + 1),
                     height: h / draggedObj.h
                 });
 
@@ -667,33 +679,72 @@
         function onSelectItem(evt) {
 
             selectedItem = $(evt.currentTarget);
-            selectItem(selectedItem)
+            selectItem(selectedItem);
         }
 
         function selectItem(selectedItem) {
 
+            selectedItem = $(selectedItem);
+
             if (prevItem != null) {
+
                 if (selectedItem.data('box-id') !== prevItem.data('box-id')) {
-                    selectedItem.attr('data-box-selected', true);
-                    selectedItem.addClass('item-selected');
+
+                    deslectItems();
+
+                    selectedItem
+                        .attr('data-box-selected', true)
+                        .addClass('item-selected');
                     TweenMax.set(selectedItem, { zIndex: 9999 });
 
-                    prevItem.attr('data-box-selected', false);
-                    selectedItem.removeClass('item-selected');
-                    TweenMax.set(prevItem, { zIndex: 0 });
+                    //prevItem
+                    //    .attr('data-box-selected', false)
+                    //    .removeClass('item-selected');
+                    //TweenMax.set(prevItem, { zIndex: 0 });
                 }
 
             }
             else {
-                selectedItem.attr('data-box-selected', true);
-                selectedItem.addClass('item-selected');
+                selectedItem
+                    .attr('data-box-selected', true)
+                    .addClass('item-selected');
+
                 TweenMax.set(selectedItem, { zIndex: 9999 });
             }
 
-            prevItem = selectedItem
-            console.log(prevItem)
+            prevItem = selectedItem;
         }
 
+        function onDeselectRoom(clickedItem) {
+
+            if ($(clickedItem).parents('.item-box').length == 0) {
+
+                deslectItems();
+            };
+        }
+
+        function deslectItems() {
+            var itemsAtStage = $('.item-box');
+            if (itemsAtStage.length > 0) {
+                itemsAtStage.each(function (i, val) {
+
+                    var itemBox = $(val)
+                        .attr('data-box-selected', false)
+                        .removeClass('item-selected');
+
+                    TweenMax.set(itemBox, { zIndex: 0 });
+
+                });
+            }
+
+            if (prevItem != null) {
+                prevItem
+                    .attr('data-box-selected', false)
+                    .removeClass('item-selected');
+                TweenMax.set(prevItem, { zIndex: 0 });
+                prevItem = null;
+            }
+        }
 
         /*
             SHAPE BUTTONS: DELETE
@@ -726,8 +777,8 @@
         }
 
         /**
-       * SHAPE BUTTONS: DRAG START
-       */
+        * SHAPE BUTTONS: DRAG START
+        */
         function onDragBtnDown(evt) {
 
             if (!dragIsOn) {
@@ -742,7 +793,9 @@
 
                 var draggedItem = btn.parent().parent();
                 createDraggableStageItem(draggedItem, actionsOfDraggable.drag);
-                console.log('dragIsOn:' + dragIsOn)
+
+                deslectItems();
+                selectItem(draggedItem);
             }
 
         }
@@ -775,8 +828,10 @@
                     //});
                 }
 
-                console.log('dragIsOn:' + dragIsOn)
-                console.log(currentDraggable)
+                if (debugMode) {
+                    console.log('dragIsOn:' + dragIsOn);
+                    console.log(currentDraggable);
+                };
             }
         }
 
@@ -832,7 +887,9 @@
                     draggedItem.attr('data-box-toy', newOriginY);
                 }
                 createDraggableStageItem(draggedItem, actionsOfDraggable.rotate);
-                console.log('rotateIsOn:' + rotateIsOn)
+
+                deslectItems();
+                selectItem(draggedItem);
             }
         }
 
@@ -873,8 +930,10 @@
                     });
                 }
 
-                console.log('rotateIsOn:' + rotateIsOn)
-                console.log(currentDraggable)
+                if (debugMode) {
+                    console.log('rotateIsOn:' + rotateIsOn);
+                    console.log(currentDraggable);
+                }
 
             }
         }
@@ -1008,7 +1067,6 @@
             }
 
             $.each($(".shape-list-btn"), function (i, shapeListBtn) {
-                console.log("tata")
 
                 $(shapeListBtn).mouseover(function (evt) {
                     OnMouseOver($(this), shapeListBtnConfig.over)
@@ -1021,7 +1079,6 @@
 
             function OnMouseOver(btn, cfg) {
 
-                //console.log(btn.find(".shape-list-title").html());
                 var bar = btn.find('.shape-list-sml-bar');
                 TweenLite.to(bar, cfg.animationTime, {
                     width: cfg.smlBarWidth,
@@ -1136,10 +1193,15 @@
                     cache: false,
                     success: function (response) {
 
-                        console.log(response);
+                        if (debugMode) {
+                            console.log(response);
+                        }
+
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr, ajaxOptions, thrownError);
+                        if (debugMode) {
+                            console.log(xhr, ajaxOptions, thrownError);
+                        }
                     }
                 });
             }
@@ -1154,9 +1216,9 @@
             /*SAVE END*/
 
         }
-         /************************
-             TOOLBAR END
-         *************************/
+        /************************
+            TOOLBAR END
+        *************************/
 
         /*ZOOM START*/
         function ZoomStage() {
@@ -1286,7 +1348,7 @@
             }
         }
         /*ON KEY UP/DOWN END*/
-       
+
         function RefreshSeatingPlanScreen() {
             UpdateProps();
         }
@@ -1330,4 +1392,4 @@
             //}
         }
     });
-})(roomsCfg)
+})(roomsCfg, debugCfg)

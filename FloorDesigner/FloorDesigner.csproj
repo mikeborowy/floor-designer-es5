@@ -181,6 +181,7 @@
     <Content Include="Images\shapes\room_squa_2x2.png" />
     <Content Include="Images\shapes\room_rect_3x2.png" />
     <Content Include="Images\shapes\room_squa_3x3.png" />
+    <Content Include="Scripts\Common\debugCfg.js" />
     <Content Include="Scripts\Common\roomsCfg.js" />
     <Content Include="Scripts\Designer\designer.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />

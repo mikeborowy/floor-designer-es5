@@ -31,8 +31,50 @@ $selectedBorderColor: $colorBlue;
                     }
 
                     .l-shape-bottom {
-                        border: $borderSize solid $borderColor;
+                        border: $borderSize solid $selectedBorderColor;
                         background-color: white;
+                    }
+                }
+            }
+
+            .shape-button {
+
+                &.shape-rotate-btn {
+
+                    .shape-rotate-inv-btn {
+                    }
+
+                    .shape-rotate-inv-icon {
+                        background-color: $selectedBorderColor;
+                    }
+                }
+
+                &.shape-drag-btn {
+
+                    .shape-drag-inv-btn {
+                    }
+
+                    .shape-drag-inv-icon {
+                        background-color: $selectedBorderColor;
+                    }
+                }
+
+                &.shape-delete-btn {
+                    .shape-delete-inv-btn {
+                    }
+
+                    .shape-delete-inv-icon {
+                        background-color: $selectedBorderColor;
+                    }
+                }
+
+                &.shape-resize-btn {
+
+                    .shape-resize-inv-btn {
+                    }
+
+                    .shape-resize-inv-icon {
+                        background-color: $selectedBorderColor;
                     }
                 }
             }

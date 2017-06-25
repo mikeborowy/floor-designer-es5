@@ -3,6 +3,11 @@
     var cfg = {}
     cfg.CELL_WIDTH = 60;
     cfg.CELL_HEIGHT = 60;
+    cfg.SHAPE_CFG = {
+        PADDING_LEFT: 0,
+        PADDING_TOP: 0,
+        BORDER_SIZE: 3
+    }
     cfg.SHAPES_SIZES = [
         {
             "shape-room-sqr-2x2":
