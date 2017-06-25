@@ -16,7 +16,7 @@
             rooms: []
         }
 
-
+        var imgPath = "../Images/blueprints/bgnd_12x10.jpg";
         //---drag-n-drop---\\
         var currentAction;
         var gridPos;
@@ -184,8 +184,10 @@
             $('#stage-items-container').width(floorCfg.width * gridCellWidth);
             $('#stage-items-container').height(floorCfg.height * gridCellHeight);
 
-            $('#stage-bgnd').width(floorCfg.width * gridCellWidth);
-            $('#stage-bgnd').height(floorCfg.height * gridCellHeight);
+            var img = $('#stage').find('img');
+            img.attr('src', floorCfg.image);
+            img.width(floorCfg.width * gridCellWidth);
+            img.height(floorCfg.height * gridCellHeight);
 
             createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
 
@@ -1177,7 +1179,7 @@
                     height: floorCfg.height,
                     xpos: floorCfg.xpos,
                     ypos: floorCfg.ypos,
-                    image: null,
+                    image: imgPath,
                     rooms: rooms
                 }
 

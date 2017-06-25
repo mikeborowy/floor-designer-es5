@@ -23,6 +23,7 @@
         var paddingTop = roomsCfg.SHAPE_CFG.PADDING_TOP;
         var itemBorderSize = roomsCfg.SHAPE_CFG.BORDER_SIZE;
         var loadedItems = [];
+        var highlightRoomColor = "#448aff";
         //GLOBAL VARS END
 
         initApp();
@@ -74,8 +75,10 @@
             $('#stage-items-container').width(floorCfg.width * gridCellWidth);
             $('#stage-items-container').height(floorCfg.height * gridCellHeight);
 
-            $('#stage-bgnd').width(floorCfg.width * gridCellWidth);
-            $('#stage-bgnd').height(floorCfg.height * gridCellHeight);
+            var img = $('#stage').find('img');
+            img.attr('src', floorCfg.image);
+            img.width(floorCfg.width * gridCellWidth);
+            img.height(floorCfg.height * gridCellHeight);
 
             //  createGrid(gridCellWidth, gridCellHeight, floorCfg.width, floorCfg.height);
 
@@ -290,9 +293,9 @@
                 $('.item-box').each(function (i, val) {
 
                     TweenLite.set($(this).find('.shape-part'),
-                    {
-                        backgroundColor: this.dataset.boxBgndColor
-                    });
+                        {
+                            backgroundColor: this.dataset.boxBgndColor
+                        });
 
                     idsArray.push(this.dataset.boxId)
                 });
@@ -300,11 +303,9 @@
                 var searchedItemId = idsArray[Math.floor(Math.random() * idsArray.length)];
                 var searchedItem = $('.item-box[data-box-id=' + searchedItemId + ']');
 
-                var highlightColor = '#ff47aa';
-
                 TweenMax.to(searchedItem.find('.shape-part'), 0.3, {
 
-                    backgroundColor: highlightColor,
+                    backgroundColor: highlightRoomColor,
                     repeat: 6,
                     yoyo: true,
                     onComplete: function () {

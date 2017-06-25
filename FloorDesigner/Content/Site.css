@@ -474,6 +474,10 @@ body {
     /*z-index:2;*/ }
     #stage-container #stage span {
       display: inline-block; }
+    #stage-container #stage img {
+      position: absolute;
+      top: 0;
+      left: 0; }
     #stage-container #stage #stage-grid-bgnd {
       /*position: relative;
                 display: inline-block;

@@ -17,6 +17,7 @@ namespace FloorDesigner.Context
                 OfficeId = 1,
                 Width = 12,
                 Height = 10,
+                Image = "../Images/blueprints/bgnd_12x10.jpg",
                 Rooms = new List<Room>() {
                 //    new Room(){
                 //        Shape = "room-sqr-2x2",
